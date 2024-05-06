@@ -24,11 +24,15 @@ export function MovieCard(props: Props) {
                     component="img"
                     alt={`backdrop: ${movie.title}`}
                     height="100%"
-                    image={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 />
-                <CardContent sx={{height:"150px"}}>
-                    <Typography variant="h6">{movie.title ?? movie?.name}</Typography>
-                    <Typography variant="overline">{movie.vote_average}/10</Typography>
+                <CardContent sx={{ height: '150px' }}>
+                    <Typography variant="h6">
+                        {movie.title ?? movie?.name}
+                    </Typography>
+                    <Typography variant="overline">
+                        {movie.vote_average}/10
+                    </Typography>
                 </CardContent>
             </Card>
         </Grid>

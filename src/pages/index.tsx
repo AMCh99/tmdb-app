@@ -8,15 +8,14 @@ import { Movie } from '../types/movie';
 import TrendingMovies from '../components/home/trendingMovies';
 import TrendingTvSeries from '../components/home/trendingTvSeries';
 import { Button } from '@mui/material';
+import MainCard from '../components/home/mainCard';
 
 export default function Home() {
-
-
     return (
         <>
-            <Typography variant="h1">HomePage</Typography>
-            <TrendingMovies/>
-            <TrendingTvSeries/>
+            <MainCard />
+            <TrendingMovies />
+            <TrendingTvSeries />
             {/* <Button variant="contained">TEST BUTTON</Button> */}
         </>
     );

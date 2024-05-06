@@ -3,8 +3,7 @@ class TrendingService {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDAyYTRiMTJlNzQxZTkzZDdlMjBiZTVkNmY2MzRkNiIsInN1YiI6IjYzY2M2OTU5Y2VlNDgxMDBkZWU4OWU0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6zgSiWjnA_2frOOKjORgzgAHs3tbYQfd9zGi_rhct5Y'
+            Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`
         }
     };
 
@@ -33,6 +32,17 @@ class TrendingService {
     static async getTrendingTvShows() {
         const url =
             'https://api.themoviedb.org/3/trending/tv/week?language=en-US';
+        return this.getTrending(url);
+    }
+
+    static async getTrendingAllToday() {
+        const url =
+            'https://api.themoviedb.org/3/trending/all/day?language=en-US';
+        return this.getTrending(url);
+    }
+
+    static async getVideos(movie_id: number, type: string) {
+        const url = `https://api.themoviedb.org/3/${type}/${movie_id}/videos`;
         return this.getTrending(url);
     }
 }

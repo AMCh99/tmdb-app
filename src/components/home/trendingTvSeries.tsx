@@ -26,8 +26,6 @@ export default function TrendingTvSeries() {
         return <h1>Loading...</h1>;
     }
 
-    console.log(trendingTvSeriesData);
-
     return (
         <>
             <Typography variant="h6">Trending Series</Typography>

@@ -23,8 +23,6 @@ export default function TrendingMovies() {
         return <h1>Loading...</h1>;
     }
 
-    console.log(trendingMoviesData);
-
     return (
         <>
             <Typography variant="h6">Trending Movies</Typography>
