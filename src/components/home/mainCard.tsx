@@ -20,33 +20,33 @@ export default function MainCard(props: Props) {
     const [currentMovie, setCurentMovie] = useState<Movie | null>(null);
     const [counter, setCounter] = useState<number>(0);
     const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
-    const [video, setVideo] = useState<any>({});
 
     useEffect(() => {
         const getData = async () => {
             const data = await TrendingService.getTrendingAllToday();
             setTrending(data);
             setLoading(false);
+
+            const details = await TrendingService.getDetails(
+                data[0]?.id,
+                data[0]?.media_type
+            );
+            setCurentMovie(details);
         };
         getData();
     }, []);
 
     useEffect(() => {
         setTimeout(async () => {
-            if (!isVideoOn) {
-                setCurentMovie(trending[counter]);
-                counter >= trending.length - 1
-                    ? setCounter(0)
-                    : setCounter(counter + 1);
-
-                const video = await TrendingService.getVideos(
+            if (!isVideoOn && currentMovie) {
+                const details = await TrendingService.getDetails(
                     trending[counter]?.id,
                     trending[counter]?.media_type
                 );
-                const trailer = video.filter(
-                    (item: any) => item?.type === 'Trailer'
-                );
-                setVideo(trailer[0]);
+                setCurentMovie(details);
+                counter >= trending.length - 1
+                    ? setCounter(0)
+                    : setCounter(counter + 1);
             }
         }, 12000);
     });
@@ -54,8 +54,8 @@ export default function MainCard(props: Props) {
     if (loading) {
         return <h1>Loading...</h1>;
     }
-    // console.log(currentMovie);
-    console.log(video);
+    console.log(currentMovie);
+    // console.log(video);
 
     return (
         <Box
@@ -63,7 +63,7 @@ export default function MainCard(props: Props) {
                 backgroundImage: `linear-gradient(to bottom, rgba(0,0,0, 0.0), rgba(18, 18, 18, 1) 90%),url(https://image.tmdb.org/t/p/original${currentMovie?.backdrop_path})`,
                 height: '100vh',
                 backgroundSize: '100%',
-                backgroundPosition: 'center'
+                backgroundPosition: 'top'
             }}
         >
             <Box sx={{ ml: 4, mr: 4 }}>
@@ -77,9 +77,9 @@ export default function MainCard(props: Props) {
                                 alignContent: 'center'
                             }}
                         >
-                            {video && (
+                            {currentMovie && (
                                 <ReactPlayer
-                                    url={`https://www.youtube.com/embed/${video?.key}`}
+                                    url={`https://www.youtube.com/embed/${currentMovie?.trailer[0]?.key}`}
                                     width="70%"
                                     height="40%"
                                     onPlay={() => {
@@ -122,6 +122,17 @@ export default function MainCard(props: Props) {
                                 /{' '}
                                 {currentMovie?.original_title ??
                                     currentMovie?.original_language}
+                            </Typography>
+                            <Typography align="right">
+                                {currentMovie?.genres.map((genre, index) => (
+                                    <>
+                                        <span key={index}>{genre.name}</span>
+                                        {index !==
+                                            currentMovie.genres.length - 1 && (
+                                            <span> / </span>
+                                        )}
+                                    </>
+                                ))}
                             </Typography>
                             <Typography align="right">
                                 <IconButton size="large">
