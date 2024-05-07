@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ReactPlayer from 'react-player';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
 
 interface Props {}
 
@@ -134,12 +135,20 @@ export default function MainCard(props: Props) {
                                     </>
                                 ))}
                             </Typography>
-                            <Typography align="right">
-                                <IconButton size="large">
-                                    <FavoriteIcon />
+                            <Typography
+                                align="right"
+                                sx={{
+                                    display: 'flex',
+                                    width: 'min-content',
+                                    float: 'right'
+                                }}
+                            >
+                                <IconButton>
+                                    <WatchLaterIcon />
                                 </IconButton>
                                 <Rating
                                     name="read-only"
+                                    sx={{ alignSelf: 'center' }}
                                     value={
                                         (currentMovie?.vote_average ?? 0) / 2
                                     }

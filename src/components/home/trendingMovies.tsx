@@ -25,7 +25,9 @@ export default function TrendingMovies() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ margin: 'auto' }}>
-                <Typography variant="h6">Trending Movies</Typography>
+                <Typography variant="h6" sx={{ marginLeft: '75px' }}>
+                    Trending Movies
+                </Typography>
                 <TrendingScrollBar
                     moviesShowData={trendingMoviesData}
                     id={'trending_movies'}

@@ -17,6 +17,7 @@ export default function Home() {
             <TrendingMovies />
             <TrendingTvSeries />
             {/* <Button variant="contained">TEST BUTTON</Button> */}
+            <Copyright />
         </>
     );
 }
