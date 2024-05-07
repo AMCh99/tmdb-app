@@ -19,7 +19,7 @@ export function MovieCard(props: Props) {
 
     return (
         <Grid item>
-            <Card raised sx={{ width: '200px' }}>
+            <Card raised sx={{ width: '200px', margin: '5px' }}>
                 <CardMedia
                     component="img"
                     alt={`backdrop: ${movie.title}`}

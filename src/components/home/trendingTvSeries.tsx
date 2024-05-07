@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TrendingService } from '../../service/trending.service';
 import { Movie } from '../../types/movie';
-import { Box, Container, Grid, Typography } from '@mui/material';
-import { MovieCard } from './movieCard';
-import { ScrollableCardContent } from '../../utils/theme/custom-components';
-import { useQueries } from 'react-query';
+import { Box, Typography } from '@mui/material';
+import { TrendingScrollBar } from './trendingScrollableBar';
 
 export default function TrendingTvSeries() {
     const [trendingTvSeriesData, setTrendingTvSeriesData] = useState<Movie[]>(
@@ -15,7 +13,6 @@ export default function TrendingTvSeries() {
     useEffect(() => {
         const getData = async () => {
             const data = await TrendingService.getTrendingTvShows();
-
             setTrendingTvSeriesData(data);
             setLoading(false);
         };
@@ -27,28 +24,14 @@ export default function TrendingTvSeries() {
     }
 
     return (
-        <>
-            <Typography variant="h6">Trending Series</Typography>
-            <ScrollableCardContent>
-                <Grid
-                    sx={{
-                        display: 'flex',
-                        scrollSnapType: 'x mandatory',
-                        scrollSnapAlignl: 'center',
-                        gap: '15px'
-                    }}
-                >
-                    {/* <MovieCard movie={trendingTvSeriesData[0]} /> */}
-                    {trendingTvSeriesData?.map((movie) => {
-                        return (
-                            <MovieCard
-                                key={movie.id + 'tv_card'}
-                                movie={movie}
-                            />
-                        );
-                    })}
-                </Grid>
-            </ScrollableCardContent>
-        </>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ margin: 'auto' }}>
+                <Typography variant="h6">Trending Series</Typography>
+                <TrendingScrollBar
+                    moviesShowData={trendingTvSeriesData}
+                    id={'trending_series'}
+                />
+            </Box>
+        </Box>
     );
 }

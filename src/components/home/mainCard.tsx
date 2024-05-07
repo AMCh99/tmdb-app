@@ -37,8 +37,8 @@ export default function MainCard(props: Props) {
     }, []);
 
     useEffect(() => {
-        setTimeout(async () => {
-            if (!isVideoOn && currentMovie) {
+        if (!isVideoOn && currentMovie) {
+            setTimeout(async () => {
                 const details = await TrendingService.getDetails(
                     trending[counter]?.id,
                     trending[counter]?.media_type
@@ -47,8 +47,8 @@ export default function MainCard(props: Props) {
                 counter >= trending.length - 1
                     ? setCounter(0)
                     : setCounter(counter + 1);
-            }
-        }, 12000);
+            }, 12000);
+        }
     });
 
     if (loading) {
