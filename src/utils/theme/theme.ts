@@ -8,24 +8,23 @@ export const roboto = Roboto({
   display: 'swap',
 });
 
-// Create a theme instance.
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#6aa6b0',
+    palette: {
+        primary: {
+            main: '#6aa6b0'
+        },
+        secondary: {
+            main: '#272727'
+        },
+        error: {
+            main: red.A400
+        },
+        mode: 'dark'
     },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
-    },
-    mode:"dark"
-  },
-  
-  typography: {
-    fontFamily: roboto.style.fontFamily,
-  },
+
+    typography: {
+        fontFamily: roboto.style.fontFamily
+    }
 });
 
 export default theme;
