@@ -6,6 +6,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../utils/theme/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const queryClient = new QueryClient();
 
 export default function MyApp(props: AppProps) {

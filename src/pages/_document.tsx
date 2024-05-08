@@ -8,6 +8,9 @@ import {
 import theme, { roboto } from '../utils/theme/theme';
 import { Copyright } from '../components/Copyright';
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 export default function MyDocument(
     props: DocumentProps & DocumentHeadTagsProps
 ) {

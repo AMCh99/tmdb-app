@@ -1,14 +1,14 @@
 class TrendingService {
-    static options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`
-        }
-    };
-
     static async getDatabaseData(url: string) {
-        return fetch(url, this.options)
+        const dotenv = require('dotenv');
+        dotenv.config();
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
+            }
+        })
             .then(async (response) => {
                 if (!response.ok) {
                     throw new Error('error');
@@ -50,14 +50,18 @@ class TrendingService {
         const url = `https://api.themoviedb.org/3/${type}/${movie_id}`;
 
         try {
-            const movieDetailsPromise = fetch(url, this.options).then(
-                async (response) => {
-                    if (!response.ok) {
-                        throw new Error('Error fetching movie details');
-                    }
-                    return response.json();
+            const movieDetailsPromise = fetch(url, {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
                 }
-            );
+            }).then(async (response) => {
+                if (!response.ok) {
+                    throw new Error('Error fetching movie details');
+                }
+                return response.json();
+            });
 
             const movieVideosPromise = this.getVideos(movie_id, type);
 
