@@ -1,10 +1,12 @@
 import {
     AppBar,
+    Autocomplete,
     Box,
     ButtonGroup,
     IconButton,
     List,
     ListItem,
+    TextField,
     Toolbar,
     Typography
 } from '@mui/material';
@@ -15,6 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { NavItem } from '../utils/theme/custom-components';
 import theme from '../utils/theme/theme';
+import { SearchBar } from './searchBar';
 
 export function NavBar() {
     return (
@@ -45,8 +48,9 @@ export function NavBar() {
                     <NavItem href="/" title="Home" />
                     <NavItem href="/movies" title="Movies" />
                     <NavItem href="/shows" title="Shows" />
-                    <NavItem href="/people" title="People" />
+                    {/* <NavItem href="/people" title="People" /> */}
                     <NavItem href="/about" title="About" />
+                    <SearchBar />
                 </List>
                 <ButtonGroup sx={{ mr: 2 }}>
                     <IconButton>

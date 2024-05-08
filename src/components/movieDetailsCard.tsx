@@ -83,14 +83,18 @@ export function MovieDetailsCard(props: Props) {
                                     movie?.original_language}
                             </Typography>
                             <Typography align="right">
-                                {movie?.genres.map((genre, index) => (
-                                    <>
-                                        <span key={index}>{genre.name}</span>
-                                        {index !== movie.genres.length - 1 && (
-                                            <span> / </span>
-                                        )}
-                                    </>
-                                ))}
+                                {movie?.genres &&
+                                    movie?.genres.map((genre, index) => (
+                                        <>
+                                            <span key={index}>
+                                                {genre.name}
+                                            </span>
+                                            {index !==
+                                                movie.genres.length - 1 && (
+                                                <span> / </span>
+                                            )}
+                                        </>
+                                    ))}
                             </Typography>
                             <Typography
                                 align="right"

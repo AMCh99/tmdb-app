@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import theme from './theme';
 
-//movie 967847
-
 export const ScrollableCardContent = styled(CardContent)(({ color }) => ({
     overflow: 'auto',
 
@@ -16,7 +14,6 @@ export const ScrollableCardContent = styled(CardContent)(({ color }) => ({
     },
     '&::-webkit-scrollbar-thumb': {
         borderRadius: '5px',
-        //   backgroundColor: palette.primary.main,
         marginRight: '10px'
     },
     '&::-webkit-scrollbar-track': {
@@ -54,7 +51,3 @@ export const NavItem = (props: Props) => {
         </ListItem>
     );
 };
-
-
-
-  
