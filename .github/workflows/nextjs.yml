@@ -32,9 +32,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Print host name
-        run: echo "${{ vars.TEST_VARIABLE }}"
+        run: echo "${{ secrets.NEXT_PUBLIC_TOKEN }}"
         env:
-          NEXT_PUBLIC_TOKEN: ${{ vars.TEST_VARIABLE }}
+          NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
       - name: Detect package manager
@@ -95,7 +95,7 @@ jobs:
     needs: build
     steps:
       - name: Set up environment variables
-        run: echo "NEXT_PUBLIC_API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+        run: echo "NEXT_PUBLIC_TOKEN=${{ secrets.NEXT_PUBLIC_TOKEN }}" >> $GITHUB_ENV
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
