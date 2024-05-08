@@ -32,7 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Print host name
-        run: echo "Host $HOST_NAME"
+        run: echo ${{ secrets.NEXT_PUBLIC_TOKEN }}
         env:
           NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
       - name: Print homepage URL
