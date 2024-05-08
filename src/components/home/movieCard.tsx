@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Movie } from '../../types/movie';
 import {
     Box,
     Card,
-    CardActionArea,
     CardActions,
     CardContent,
-    CardHeader,
-    CardMedia,
     Grid,
     IconButton,
     Rating,
     Typography
 } from '@mui/material';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import { useRouter } from 'next/router';
 
 interface Props {
     movie: Movie;
@@ -22,9 +20,13 @@ interface Props {
 export function MovieCard(props: Props) {
     const { movie } = props;
     const [isMouseOver, setMouseOver] = useState<boolean>(false);
+    const router = useRouter();
 
     return (
-        <Grid item>
+        <Grid
+            item
+            onClick={() => router.push(`/${movie.media_type}/${movie.id}`)}
+        >
             <Card raised sx={{ width: '200px', margin: '5px' }}>
                 <Box
                     sx={{

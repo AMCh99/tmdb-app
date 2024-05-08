@@ -43,14 +43,6 @@ export default function About() {
                       natus libero! Possimus illum deserunt sapiente iusto ex ad
                       quasi! Sunt adipisci delectus ipsam non.
                   </Typography>
-                  <Box sx={{ maxWidth: 'sm' }}>
-                      <Button
-                          variant="contained"
-                          onClick={() => router.push('/')}
-                      >
-                          Go to the home page
-                      </Button>
-                  </Box>
                   <Copyright />
               </Box>
           </Container>

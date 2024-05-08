@@ -27,7 +27,12 @@ export function NavBar() {
                 <Typography
                     variant="h6"
                     fontSize={35}
-                    sx={{ bgcolor: theme.palette.primary.main, pl: 1, pr: 1 }}
+                    sx={{
+                        bgcolor: theme.palette.primary.main,
+                        pl: 1,
+                        pr: 1,
+                        textShadow: `${theme.palette.secondary.main} 1px 1px 1px`
+                    }}
                 >
                     TMDB
                 </Typography>

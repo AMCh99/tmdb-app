@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import theme from './theme';
 
+//movie 967847
+
 export const ScrollableCardContent = styled(CardContent)(({ color }) => ({
     overflow: 'auto',
 
