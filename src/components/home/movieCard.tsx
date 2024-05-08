@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 
 interface Props {
     movie: Movie;
+    media_type: 'movie' | 'tv';
 }
 
 export function MovieCard(props: Props) {
@@ -25,7 +26,11 @@ export function MovieCard(props: Props) {
     return (
         <Grid
             item
-            onClick={() => router.push(`/${movie.media_type}/${movie.id}`)}
+            onClick={() =>
+                router.push(
+                    `/${movie.media_type ?? props.media_type}/${movie.id}`
+                )
+            }
         >
             <Card raised sx={{ width: '200px', margin: '5px' }}>
                 <Box

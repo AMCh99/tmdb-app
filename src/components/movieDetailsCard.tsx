@@ -38,7 +38,7 @@ export function MovieDetailsCard(props: Props) {
                                 alignContent: 'center'
                             }}
                         >
-                            {movie && (
+                            {movie?.trailer && (
                                 <ReactPlayer
                                     url={`https://www.youtube.com/embed/${movie?.trailer[0]?.key}`}
                                     width="70%"

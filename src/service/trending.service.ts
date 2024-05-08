@@ -80,6 +80,11 @@ class TrendingService {
         const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`;
         return this.getDatabaseData(url);
     }
+
+    static async getLists(type: string, list: string) {
+        const url = `https://api.themoviedb.org/3/${type}/${list}?language=en-US&page=1`;
+        return this.getDatabaseData(url);
+    }
 }
 
 export { TrendingService };

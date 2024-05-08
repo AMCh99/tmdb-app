@@ -10,6 +10,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 interface Props {
     moviesShowData: Movie[];
     id: string;
+    media_type: 'movie' | 'tv';
 }
 
 export function TrendingScrollBar(props: Props) {
@@ -110,6 +111,7 @@ export function TrendingScrollBar(props: Props) {
                                 <MovieCard
                                     movie={movie}
                                     key={movie.id + 'mov_card'}
+                                    media_type={props.media_type}
                                 />
                             );
                         })}

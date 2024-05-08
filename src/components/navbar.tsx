@@ -49,7 +49,7 @@ export function NavBar() {
                     <NavItem href="/movies" title="Movies" />
                     <NavItem href="/shows" title="Shows" />
                     {/* <NavItem href="/people" title="People" /> */}
-                    <NavItem href="/about" title="About" />
+                    {/* <NavItem href="/about" title="About" /> */}
                     <SearchBar />
                 </List>
                 <ButtonGroup sx={{ mr: 2 }}>

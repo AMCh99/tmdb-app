@@ -1,10 +1,14 @@
 import Typography from '@mui/material/Typography';
-import MuiLink from '@mui/material/Link';
+import theme from '../utils/theme/theme';
 
-export default function Copyright() {
-  return (
-      <Typography variant="body2" color="text.secondary" align="center">
-          {'Copyright © Arkadiusz Charliński '} {new Date().getFullYear()}.
-      </Typography>
-  );
+export function Copyright() {
+    return (
+        <Typography
+            variant="body2"
+            color={theme.palette.primary.main}
+            align="center"
+        >
+            {'Copyright © Arkadiusz Charliński '} {new Date().getFullYear()}
+        </Typography>
+    );
 }
