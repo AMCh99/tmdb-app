@@ -34,7 +34,7 @@ jobs:
       - name: Print host name
         run: echo "Host $HOST_NAME"
         env:
-          HOST_NAME: Earthly
+          NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
       - name: Detect package manager
