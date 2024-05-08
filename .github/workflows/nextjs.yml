@@ -32,9 +32,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Print host name
-        run: echo "${{ variables.TEST_VARIABLE }}"
+        run: echo "${{ env.TEST_VARIABLE }}"
         env:
-          NEXT_PUBLIC_TOKEN: ${{ variables.TEST_VARIABLE }}
+          NEXT_PUBLIC_TOKEN: ${{ env.TEST_VARIABLE }}
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
       - name: Detect package manager
