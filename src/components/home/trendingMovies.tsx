@@ -31,6 +31,7 @@ export default function TrendingMovies() {
                 <TrendingScrollBar
                     moviesShowData={trendingMoviesData}
                     id={'trending_movies'}
+                    media_type={'movie'}
                 />
             </Box>
         </Box>

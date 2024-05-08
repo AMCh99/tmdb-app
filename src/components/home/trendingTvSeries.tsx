@@ -32,6 +32,7 @@ export default function TrendingTvSeries() {
                 <TrendingScrollBar
                     moviesShowData={trendingTvSeriesData}
                     id={'trending_series'}
+                    media_type="tv"
                 />
             </Box>
         </Box>
