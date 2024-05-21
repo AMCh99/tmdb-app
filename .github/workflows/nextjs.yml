@@ -35,8 +35,13 @@ jobs:
         run: echo "${{ secrets.NEXT_PUBLIC_TOKEN }}"
         env:
           NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
+          Greeting: Hello
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
       - name: Detect package manager
         id: detect-package-manager
         run: |
