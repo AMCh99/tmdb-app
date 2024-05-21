@@ -95,7 +95,7 @@ jobs:
     needs: build
     steps:
       - name: Set up environment variables
-        run: echo "NEXT_PUBLIC_TOKEN=${{ secrets.NEXT_PUBLIC_TOKEN }}" >> $GITHUB_ENV
+        run: echo "NEXT_PUBLIC_TOKEN=${{ secrets.NEXT_PUBLIC_TOKEN }}"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
