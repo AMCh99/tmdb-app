@@ -39,9 +39,7 @@ jobs:
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
       - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-        env:
-          First_Name: Mona
+        run: echo "$Greeting Hi. Today is $DAY_OF_WEEK!"
       - name: Detect package manager
         id: detect-package-manager
         run: |
