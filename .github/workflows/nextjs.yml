@@ -39,7 +39,7 @@ jobs:
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
       - name: "Say Hello Mona it's Monday"
-        run: echo "Say Hello Mona it's Monday ${env.GRETTING}"
+        run: echo "Say Hello Mona it's Monday ${{ GRETTING }}"
       - name: Detect package manager
         id: detect-package-manager
         run: |
