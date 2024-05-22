@@ -6,6 +6,7 @@ name: Deploy Next.js site to Pages
 
 env:
   GRETTING: xdxdxd
+  NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
 
 on:
   # Runs on pushes targeting the default branch
