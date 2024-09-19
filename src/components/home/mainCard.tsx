@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../../types/movie';
 import { TrendingService } from '../../service/trending.service';
-import {
-    Box,
-    Container,
-    Typography,
-    Grid,
-    Rating,
-    IconButton
-} from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ReactPlayer from 'react-player';
-import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { MovieDetailsCard } from '../movieDetailsCard';
 
 interface Props {}

@@ -9,6 +9,7 @@ import {
 import ReactPlayer from 'react-player';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { Movie } from '../types/movie';
+import { useEffect, useState } from 'react';
 
 interface Props {
     movie: Movie;
@@ -17,18 +18,42 @@ interface Props {
 
 export function MovieDetailsCard(props: Props) {
     const { movie, setIsVideoOn } = props;
+    const [opacity, setOpacity] = useState(0);
+    const finalOpacity = 100;
+
+    useEffect(() => {
+        setOpacity(0);
+    }, [movie?.backdrop_path]);
+
+    useEffect(() => {
+        const fadeIn = () => {
+            setOpacity((prevOpacity) => {
+                if (prevOpacity < finalOpacity) {
+                    return Math.min(prevOpacity + 2.5, finalOpacity);
+                }
+                return prevOpacity;
+            });
+        };
+
+        const timer = setInterval(fadeIn, 10);
+
+        return () => clearInterval(timer);
+    }, [opacity]);
 
     return (
         <Box
             sx={{
-                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0, 0.0), rgba(18, 18, 18, 1) 90%),url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
-                height: '100vh',
-                backgroundSize: '100%',
-                backgroundPosition: 'top'
+                backgroundImage: `linear-gradient(to bottom, rgba(0,0,0, 0.0), rgba(18, 18, 18, 1) 98%),url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
+                opacity: `${opacity}%`,
+                height: '85vh',
+                backgroundSize: 'cover',
+                backgroundPosition: 'top',
+                transform: 'translate3d(0, 0, 0)',
+                willChange: 'transform',
             }}
         >
             <Box sx={{ ml: 4, mr: 4 }}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{opacity:opacity}}>
                     <Grid item md={6}>
                         <Container
                             sx={{

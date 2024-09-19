@@ -3,7 +3,7 @@ import { Trailer } from './trailer';
 export interface Movie {
     adult: boolean;
     backdrop_path: string | null;
-    belongs_to_collection: any; // You can define a specific interface for collection if needed
+    belongs_to_collection: any;
     budget: number;
     genres: Genre[];
     homepage: string;

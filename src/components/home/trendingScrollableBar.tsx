@@ -6,6 +6,7 @@ import { ScrollableCardContent } from '../../utils/theme/custom-components';
 import { TrendingService } from '../../service/trending.service';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { log } from 'console';
 
 interface Props {
     moviesShowData: Movie[];
@@ -18,31 +19,38 @@ export function TrendingScrollBar(props: Props) {
     const [width, setWidth] = useState<number>(1000);
 
     const ELEMENT_WIDTH = 210;
-    const SPEED = 1;
-    const STEP = 15;
+    const SPEED = 3;
+    const STEP = 10;
+    const BUTTONS_WIDTH = 140;
+    const SCROLL_ELEMENTS = 5;
 
     const setNewWidth = () => {
         const calculateWidth =
-            Math.floor((window.innerWidth - 140) / 210) * 210;
+            Math.floor((window.innerWidth - BUTTONS_WIDTH) / ELEMENT_WIDTH) *
+            ELEMENT_WIDTH;
         setWidth(calculateWidth);
     };
 
     useEffect(() => {
         setNewWidth();
-    }, []);
 
-    if (typeof onresize !== 'undefined') {
-        onresize = () => {
+        const handleResize = () => {
             setNewWidth();
         };
-    }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const forward = () => {
         sideScroll(
             document.getElementById(`scrollable_${id}`),
             'right',
             SPEED,
-            ELEMENT_WIDTH * 3,
+            ELEMENT_WIDTH * SCROLL_ELEMENTS,
             STEP
         );
     };
@@ -52,7 +60,7 @@ export function TrendingScrollBar(props: Props) {
             document.getElementById(`scrollable_${id}`),
             'left',
             SPEED,
-            ELEMENT_WIDTH * 3,
+            ELEMENT_WIDTH * SCROLL_ELEMENTS,
             STEP
         );
     };
@@ -95,7 +103,13 @@ export function TrendingScrollBar(props: Props) {
 
                 <ScrollableCardContent
                     id={`scrollable_${id}`}
-                    sx={{ m: 0, p: 0, width: `${width}px` }}
+                    sx={{
+                        m: 0,
+                        p: 0,
+                        width: `${width}px`,
+                        transform: 'translate3d(0, 0, 0)',
+                        willChange: 'transform'
+                    }}
                 >
                     <Grid
                         sx={{

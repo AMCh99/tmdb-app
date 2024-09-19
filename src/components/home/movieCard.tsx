@@ -37,8 +37,8 @@ export function MovieCard(props: Props) {
                     sx={{
                         backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.poster_path})`,
                         height: '300px',
-                        backgroundSize: '100%',
-                        backgroundPosition: 'top'
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                     }}
                     onMouseEnter={() => {
                         setMouseOver(true);
