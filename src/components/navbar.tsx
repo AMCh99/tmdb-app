@@ -34,7 +34,8 @@ export function NavBar() {
                         bgcolor: theme.palette.primary.main,
                         pl: 1,
                         pr: 1,
-                        textShadow: `${theme.palette.secondary.main} 1px 1px 1px`
+                        textShadow: `${theme.palette.secondary.main} 1px 1px 1px`,
+                        userSelect: 'none',
                     }}
                 >
                     TMDB
