@@ -91,7 +91,7 @@ class TrendingService {
     }
 
     static async getReviews(movie_id: number, type: string) {
-        const url = `https://api.themoviedb.org/3/movie/${movie_id}/reviews`;
+        const url = `https://api.themoviedb.org/3/${type}/${movie_id}/reviews`;
         return this.getDatabaseData(url);
     }
 }
