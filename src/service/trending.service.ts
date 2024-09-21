@@ -89,6 +89,11 @@ class TrendingService {
         const url = `https://api.themoviedb.org/3/${type}/${list}?language=en-US&page=1`;
         return this.getDatabaseData(url);
     }
+
+    static async getReviews(movie_id: number, type: string) {
+        const url = `https://api.themoviedb.org/3/movie/${movie_id}/reviews`;
+        return this.getDatabaseData(url);
+    }
 }
 
 export { TrendingService };

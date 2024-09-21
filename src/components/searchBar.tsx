@@ -17,6 +17,7 @@ import {
 import React, { useState } from 'react';
 import { TrendingService } from '../service/trending.service';
 import { Movie } from '../types/movie';
+import { Option } from '../types/searchOption';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
 import theme from '../utils/theme/theme';
@@ -24,24 +25,8 @@ import theme from '../utils/theme/theme';
 export function SearchBar() {
     const router = useRouter();
 
-    const [searchingOptions, setSearchingOptions] = useState<
-        {
-            label: string;
-            id: number;
-            media_type: string;
-            poster_path: string;
-            vote_average: number;
-            release_date: Date;
-        }[]
-    >([]);
-    const [option, setOption] = useState<{
-        label: string;
-        id: number;
-        media_type: string;
-        poster_path: string;
-        vote_average: number;
-        release_date: Date;
-    }>();
+    const [searchingOptions, setSearchingOptions] = useState<Option[]>([]);
+    const [option, setOption] = useState<Option>();
 
     const handleOptions = async (event: any) => {
         const searchData = await TrendingService.getSearching(
@@ -69,6 +54,12 @@ export function SearchBar() {
         setOption(option[0]);
     };
 
+    const goToMoviePage = (option?: Option) => {
+        option?.media_type &&
+            option?.id &&
+            router.push(`${option?.media_type}/${option?.id}`);
+    };
+
     console.log(option);
 
     return (
@@ -83,19 +74,22 @@ export function SearchBar() {
                     handleChange(event.target.textContent);
                 }}
                 renderOption={(props, option) => {
-                    const { ...optionProps } = props;
                     return (
                         <Box
                             component={'li'}
-                            {...optionProps}
-                            sx={{
-                                // display: 'flex',
-                                // justifyContent: 'space-between',
-                                // '&:hover':{
-                                //     bgcolor: theme.palette.primary.main,
-                                //     textShadow: 'rgb(0,0,0) 1px 1px 1px'
-                                // }
-                                
+                            // sx={{
+                            //     display: 'flex',
+                            //     justifyContent: 'space-between',
+                            //     '&:hover':{
+                            //         bgcolor: theme.palette.primary.main,
+                            //         textShadow: 'rgb(0,0,0) 1px 1px 1px'
+                            //     }
+
+                            // }}
+                            {...props}
+                            onClick={() => {
+                                goToMoviePage(option);
+                                handleChange(option.label);
                             }}
                         >
                             <img
@@ -158,11 +152,7 @@ export function SearchBar() {
                     height: 'min-content',
                     alignSelf: 'center'
                 }}
-                onClick={() =>
-                    option?.media_type &&
-                    option?.id &&
-                    router.push(`${option?.media_type}/${option?.id}`)
-                }
+                onClick={() => goToMoviePage(option)}
             >
                 <SearchIcon />
             </IconButton>

@@ -10,6 +10,7 @@ import ReactPlayer from 'react-player';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { Movie } from '../types/movie';
 import { useEffect, useState } from 'react';
+import { ReviewsSection } from './reviews';
 
 interface Props {
     movie: Movie;
@@ -39,6 +40,9 @@ export function MovieDetailsCard(props: Props) {
 
         return () => clearInterval(timer);
     }, [opacity]);
+
+    console.log(movie);
+    
 
     return (
         <Box
@@ -144,6 +148,7 @@ export function MovieDetailsCard(props: Props) {
                     </Grid>
                 </Grid>
             </Box>
+            <ReviewsSection movie_id={movie.id} type={movie.media_type}/>
         </Box>
     );
 }
