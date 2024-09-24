@@ -29,52 +29,54 @@ export function ReviewsSection(props: Props) {
         return <h1>Loading...</h1>;
     }
 
-    return (
-        <Container sx={{ margin: 'auto' }} maxWidth="xl">
-            <Typography variant="h6" sx={{ m:4 }}>
-                Reviews
-            </Typography>
-            {reviews.map((rev: Review) => {
-                return (
-                    <Container sx={{ mb: 4 }} maxWidth="xl">
-                        <Paper elevation={1} sx={{ p: 3 }}>
-                            <Box
-                                id={rev.id}
-                                sx={{
-                                    display: 'flex',
-                                    m: 1
-                                }}
-                            >
-                                <Avatar
-                                    alt={rev.author_details.username}
-                                    src={
-                                        'https://image.tmdb.org/t/p/original' +
-                                        rev.author_details.avatar_path
-                                    }
-                                    sx={{ width: 75, height: 75 }}
-                                />
-                                <Typography variant="h6" sx={{ ml: 2 }}>
-                                    {rev.author}
+    if (reviews.length > 0){
+        return (
+            <Container sx={{ margin: 'auto' }} maxWidth="xl">
+                <Typography variant="h6" sx={{ m:4 }}>
+                    Reviews
+                </Typography>
+                {reviews.map((rev: Review) => {
+                    return (
+                        <Container sx={{ mb: 4 }} maxWidth="xl">
+                            <Paper elevation={1} sx={{ p: 3 }}>
+                                <Box
+                                    id={rev.id}
+                                    sx={{
+                                        display: 'flex',
+                                        m: 1
+                                    }}
+                                >
+                                    <Avatar
+                                        alt={rev.author_details.username}
+                                        src={
+                                            'https://image.tmdb.org/t/p/original' +
+                                            rev.author_details.avatar_path
+                                        }
+                                        sx={{ width: 75, height: 75 }}
+                                    />
+                                    <Typography variant="h6" sx={{ ml: 2 }}>
+                                        {rev.author}
+                                    </Typography>
+                                </Box>
+    
+                                <Typography
+                                    variant="body1"
+                                    // sx={{
+                                    //     display: '-webkit-box',
+                                    //     WebkitBoxOrient: 'vertical',
+                                    //     WebkitLineClamp: 3,
+                                    //     alignContent: 'center',
+                                    //     textOverflow: 'ellipsis',
+                                    //     overflow: 'hidden'
+                                    // }}
+                                >
+                                    {rev.content}
                                 </Typography>
-                            </Box>
-
-                            <Typography
-                                variant="body1"
-                                // sx={{
-                                //     display: '-webkit-box',
-                                //     WebkitBoxOrient: 'vertical',
-                                //     WebkitLineClamp: 3,
-                                //     alignContent: 'center',
-                                //     textOverflow: 'ellipsis',
-                                //     overflow: 'hidden'
-                                // }}
-                            >
-                                {rev.content}
-                            </Typography>
-                        </Paper>
-                    </Container>
-                );
-            })}
-        </Container>
-    );
+                            </Paper>
+                        </Container>
+                    );
+                })}
+            </Container>
+        );
+    }
 }
