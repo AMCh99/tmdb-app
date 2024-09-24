@@ -45,8 +45,6 @@ export default function MainCard(props: Props) {
     if (loading) {
         return <h1>Loading...</h1>;
     }
-    console.log(currentMovie);
-    // console.log(video);
 
     if (currentMovie != null) {
         return (

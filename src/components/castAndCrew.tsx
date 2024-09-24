@@ -29,8 +29,6 @@ export default function CastAndCrewSection(props: Props) {
         const getReviews = async () => {
             const data = await TrendingService.getCreditDetails(movie_id, type);
             setDetails(data);
-            console.log(data);
-
             setLoading(false);
         };
         getReviews();

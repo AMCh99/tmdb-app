@@ -35,8 +35,7 @@ export function MovieTvList(props: Props) {
     if (loading) {
         return <h1>Loading...</h1>;
     }
-    console.log(upcomingData);
-
+    
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ margin: 'auto' }}>

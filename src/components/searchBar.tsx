@@ -55,12 +55,15 @@ export function SearchBar() {
     };
 
     const goToMoviePage = (option?: Option) => {
-        option?.media_type &&
-            option?.id &&
-            router.push(`${option?.media_type}/${option?.id}`);
+        if (option?.media_type && option?.id) {
+            router.push({
+                pathname: `/${option.media_type}/[id]`,
+                query: { id: option.id }
+            });
+        } else {
+            console.log("Invalid option:", option);
+        }
     };
-
-    console.log(option);
 
     return (
         <form style={{ display: 'flex' }}>
@@ -128,10 +131,12 @@ export function SearchBar() {
                         placeholder="Searching..."
                         sx={{
                             width: '16vw',
+                            height:'2em',
                             '& .MuiInputBase-root': {
                                 p: 0,
                                 pl: 1,
-                                height: '3.5em'
+                                borderRadius:"20px",
+                                m:1,
                             },
                             '& input::placeholder': {
                                 fontStyle: 'italic',
@@ -150,7 +155,8 @@ export function SearchBar() {
                 size="small"
                 sx={{
                     height: 'min-content',
-                    alignSelf: 'center'
+                    alignSelf: 'center',
+                    ml:1
                 }}
                 onClick={() => goToMoviePage(option)}
             >
