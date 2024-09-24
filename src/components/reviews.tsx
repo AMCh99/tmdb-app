@@ -37,10 +37,9 @@ export function ReviewsSection(props: Props) {
                 </Typography>
                 {reviews.map((rev: Review) => {
                     return (
-                        <Container sx={{ mb: 4 }} maxWidth="xl">
+                        <Container sx={{ mb: 4 }} maxWidth="xl" id={rev.id}>
                             <Paper elevation={1} sx={{ p: 3 }}>
                                 <Box
-                                    id={rev.id}
                                     sx={{
                                         display: 'flex',
                                         m: 1

@@ -94,6 +94,31 @@ class TrendingService {
         const url = `https://api.themoviedb.org/3/${type}/${movie_id}/reviews`;
         return this.getDatabaseData(url);
     }
+
+    static async getCreditDetails(movie_id: number, type: string)  {
+        const url = `https://api.themoviedb.org/3/${type}/${movie_id}/credits`;
+        const dotenv = require('dotenv');
+        dotenv.config();
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
+            }
+        })
+            .then(async (response) => {
+                if (!response.ok) {
+                    throw new Error('error');
+                }
+
+                const res = await response.json();
+                return res;
+            })
+            .catch((error) => {
+                console.log(error);
+                return [];
+            });
+    }
 }
 
 export { TrendingService };

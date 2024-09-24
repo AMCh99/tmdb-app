@@ -6,6 +6,7 @@ import { TrendingService } from '../../service/trending.service';
 import { MovieDetailsCard } from '../../components/movieDetailsCard';
 import { Container } from '@mui/material';
 import { ReviewsSection } from '../../components/reviews';
+import CastAndCrewSection from '../../components/castAndCrew';
 
 interface RouteParams {
     movie_id: string;
@@ -37,6 +38,11 @@ export default function MoviePage() {
             <>
                 <NavBar />
                 <MovieDetailsCard movie={movie} setIsVideoOn={setIsVideoOn} />
+
+                {typeof movie_id === 'string' &&
+                    typeof media_type === 'string' && (
+                        <CastAndCrewSection movie_id={movie.id} type={media_type} />
+                    )}
 
                 {typeof movie_id === 'string' &&
                     typeof media_type === 'string' && (
