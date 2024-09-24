@@ -5,6 +5,7 @@ import { Movie } from '../../types/movie';
 import { TrendingService } from '../../service/trending.service';
 import { MovieDetailsCard } from '../../components/movieDetailsCard';
 import { Container } from '@mui/material';
+import { ReviewsSection } from '../../components/reviews';
 
 interface RouteParams {
     movie_id: string;
@@ -30,13 +31,17 @@ export default function MoviePage() {
         }
     }, [movie_id, media_type]);
 
-    console.log(movie);
 
     if (movie != null)
         return (
             <>
                 <NavBar />
                 <MovieDetailsCard movie={movie} setIsVideoOn={setIsVideoOn} />
+
+                {typeof movie_id === 'string' &&
+                    typeof media_type === 'string' && (
+                        <ReviewsSection movie_id={movie.id} type={media_type} />
+                    )}
             </>
         );
 }

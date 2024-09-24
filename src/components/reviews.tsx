@@ -1,7 +1,9 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Avatar, Box, Button, Container, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { TrendingService } from '../service/trending.service';
 import { Copyright } from './Copyright';
+import { Review } from '../types/review';
+import Paper from '@mui/material/Paper';
 
 interface Props {
     movie_id: number;
@@ -11,7 +13,7 @@ interface Props {
 export function ReviewsSection(props: Props) {
     const { movie_id, type } = props;
 
-    const [reviews, setReviews] = useState<[]>([]);
+    const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -27,26 +29,52 @@ export function ReviewsSection(props: Props) {
         return <h1>Loading...</h1>;
     }
 
-    console.log(reviews);
-
     return (
-        <Box
-        // sx={{ display: 'flex', flexDirection: 'column' }}
-        >
-            <Box sx={{ margin: 'auto' }}>
-                <Typography variant="h6" sx={{ marginLeft: '75px' }}>
-                    Reviews
-                </Typography>
-                {reviews.map((rev:any) => {
-                    return (
-                        <Container sx={{mb:4}} maxWidth="xl">
-                            <Typography variant='button'>{rev.author}</Typography>
-                            <Typography variant='body1'>{rev.content}</Typography>
-                        </Container>
-                    );
-                })}
-            </Box>
-            <Copyright/>
-        </Box>
+        <Container sx={{ margin: 'auto' }} maxWidth="xl">
+            <Typography variant="h6" sx={{ m:4 }}>
+                Reviews
+            </Typography>
+            {reviews.map((rev: Review) => {
+                return (
+                    <Container sx={{ mb: 4 }} maxWidth="xl">
+                        <Paper elevation={1} sx={{ p: 3 }}>
+                            <Box
+                                id={rev.id}
+                                sx={{
+                                    display: 'flex',
+                                    m: 1
+                                }}
+                            >
+                                <Avatar
+                                    alt={rev.author_details.username}
+                                    src={
+                                        'https://image.tmdb.org/t/p/original' +
+                                        rev.author_details.avatar_path
+                                    }
+                                    sx={{ width: 75, height: 75 }}
+                                />
+                                <Typography variant="h6" sx={{ ml: 2 }}>
+                                    {rev.author}
+                                </Typography>
+                            </Box>
+
+                            <Typography
+                                variant="body1"
+                                // sx={{
+                                //     display: '-webkit-box',
+                                //     WebkitBoxOrient: 'vertical',
+                                //     WebkitLineClamp: 3,
+                                //     alignContent: 'center',
+                                //     textOverflow: 'ellipsis',
+                                //     overflow: 'hidden'
+                                // }}
+                            >
+                                {rev.content}
+                            </Typography>
+                        </Paper>
+                    </Container>
+                );
+            })}
+        </Container>
     );
 }

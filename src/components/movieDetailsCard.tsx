@@ -40,8 +40,6 @@ export function MovieDetailsCard(props: Props) {
 
         return () => clearInterval(timer);
     }, [opacity]);
-
-    console.log(movie);
     
 
     return (
@@ -148,7 +146,6 @@ export function MovieDetailsCard(props: Props) {
                     </Grid>
                 </Grid>
             </Box>
-            <ReviewsSection movie_id={movie.id} type={movie.media_type}/>
         </Box>
     );
 }
