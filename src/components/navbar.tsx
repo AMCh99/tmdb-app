@@ -15,8 +15,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
-import { NavItem } from '../utils/theme/custom-components';
-import theme from '../utils/theme/theme';
+import { NavItem } from '../utils/custom-components';
+import theme from '../theme/theme';
 import { SearchBar } from './searchBar';
 
 export function NavBar() {

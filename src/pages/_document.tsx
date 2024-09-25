@@ -5,7 +5,7 @@ import {
   DocumentHeadTagsProps,
   documentGetInitialProps,
 } from '@mui/material-nextjs/v14-pagesRouter';
-import theme, { roboto } from '../utils/theme/theme';
+import theme, { roboto } from '../theme/theme';
 import { Copyright } from '../components/Copyright';
 
 const dotenv = require('dotenv');

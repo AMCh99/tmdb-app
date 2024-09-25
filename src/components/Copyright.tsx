@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import theme from '../utils/theme/theme';
+import theme from '../theme/theme';
 
 export function Copyright() {
     return (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from '../../types/movie';
 import { Box, Container, Grid, IconButton, Typography } from '@mui/material';
 import { MovieCard } from './movieCard';
-import { ScrollableCardContent } from '../../utils/theme/custom-components';
+import { ScrollableCardContent } from '../../utils/custom-components';
 import { TrendingService } from '../../service/trending.service';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';

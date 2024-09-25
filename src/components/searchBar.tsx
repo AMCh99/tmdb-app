@@ -20,7 +20,7 @@ import { Movie } from '../types/movie';
 import { Option } from '../types/searchOption';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
-import theme from '../utils/theme/theme';
+import theme from '../theme/theme';
 
 export function SearchBar() {
     const router = useRouter();
