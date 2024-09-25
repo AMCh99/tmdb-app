@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { CardContent, ListItem } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import theme from '../theme';
+import theme from '../theme/theme';
 
 export const ScrollableCardContent = styled(CardContent)(({ color }) => ({
     overflow: 'auto',
