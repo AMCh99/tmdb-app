@@ -56,21 +56,12 @@ export function SearchBar() {
     };
 
     const goToMoviePage = (option?: Option) => {
-        if (option?.media_type && option?.id) {
-            router.push({
-                pathname: `/[media_type]/[id]`,
-                query: { media_type: option.media_type, id: option.id }
-            });
-        } else {
-            console.log("Invalid option:", option);
-        }
+        option?.media_type &&
+            option?.id &&
+            router.push(
+                `/${option.media_type}/${option.id}`
+            ) 
     };
-
-    // const goToMoviePage = (option?: Option) => {
-    //     option?.media_type &&
-    //         option?.id &&
-    //         router.push(`${option?.media_type}/${option?.id}`);
-    // };
 
     return (
         <form style={{ display: 'flex' }}>
