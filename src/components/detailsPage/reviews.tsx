@@ -22,7 +22,7 @@ export function ReviewsSection(props: Props) {
             setLoading(false);
         };
         getReviews();
-    }, []);
+    }, [movie_id]);
 
     if (loading) {
         return <h1>Loading...</h1>;
