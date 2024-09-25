@@ -21,6 +21,7 @@ import { Option } from '../types/searchOption';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
 import theme from '../theme/theme';
+// https://amch99.github.io/tmdb-app/tv/248155
 
 export function SearchBar() {
     const router = useRouter();
@@ -54,22 +55,22 @@ export function SearchBar() {
         setOption(option[0]);
     };
 
-    // const goToMoviePage = (option?: Option) => {
-    //     if (option?.media_type && option?.id) {
-    //         router.push({
-    //             pathname: `/${option.media_type}/[id]`,
-    //             query: { id: option.id }
-    //         });
-    //     } else {
-    //         console.log("Invalid option:", option);
-    //     }
-    // };
-
     const goToMoviePage = (option?: Option) => {
-        option?.media_type &&
-            option?.id &&
-            router.push(`${option?.media_type}/${option?.id}`);
+        if (option?.media_type && option?.id) {
+            router.push({
+                pathname: `/[media_type]/[id]`,
+                query: { media_type: option.media_type, id: option.id }
+            });
+        } else {
+            console.log("Invalid option:", option);
+        }
     };
+
+    // const goToMoviePage = (option?: Option) => {
+    //     option?.media_type &&
+    //         option?.id &&
+    //         router.push(`${option?.media_type}/${option?.id}`);
+    // };
 
     return (
         <form style={{ display: 'flex' }}>
