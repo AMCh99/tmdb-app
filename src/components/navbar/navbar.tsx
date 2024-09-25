@@ -1,34 +1,27 @@
 import {
     AppBar,
-    Autocomplete,
-    Box,
     ButtonGroup,
     IconButton,
     List,
-    ListItem,
-    TextField,
     Toolbar,
     Typography
 } from '@mui/material';
-import Link from 'next/link';
-import React from 'react';
-import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
-import { NavItem } from '../utils/custom-components';
-import theme from '../theme/theme';
+import { NavItem } from './navItem';
+import theme from '../../theme/theme';
 import { SearchBar } from './searchBar';
 
 export function NavBar() {
     return (
-        <AppBar position="sticky" sx={{ m: 0, padding: 0 }}>
+        <AppBar position='sticky' sx={{ m: 0, padding: 0 }}>
             <Toolbar
                 disableGutters
-                variant="dense"
+                variant='dense'
                 sx={{ justifyContent: 'space-between' }}
             >
                 <Typography
-                    variant="h6"
+                    variant='h6'
                     fontSize={35}
                     sx={{
                         bgcolor: theme.palette.primary.main,
@@ -46,11 +39,9 @@ export function NavBar() {
                         p: 0
                     }}
                 >
-                    <NavItem href="/" title="Home" />
-                    <NavItem href="/movies" title="Movies" />
-                    <NavItem href="/shows" title="Shows" />
-                    {/* <NavItem href="/people" title="People" /> */}
-                    {/* <NavItem href="/about" title="About" /> */}
+                    <NavItem href='/' title='Home' />
+                    <NavItem href='/movies' title='Movies' />
+                    <NavItem href='/shows' title='Shows' />
                     <SearchBar />
                 </List>
                 <ButtonGroup sx={{ mr: 2 }}>

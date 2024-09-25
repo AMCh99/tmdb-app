@@ -4,9 +4,9 @@ import theme from '../theme/theme';
 export function Copyright() {
     return (
         <Typography
-            variant="body2"
+            variant='body2'
             color={theme.palette.primary.main}
-            align="center"
+            align='center'
         >
             {'Copyright © Arkadiusz Charliński '} {new Date().getFullYear()}
         </Typography>

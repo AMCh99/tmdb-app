@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Movie } from '../../types/movie';
-import { Box, Container, Grid, IconButton, Typography } from '@mui/material';
-import { MovieCard } from './movieCard';
-import { ScrollableCardContent } from '../../utils/custom-components';
-import { TrendingService } from '../../service/trending.service';
+import { useEffect, useState } from 'react';
+import { Movie } from '../types/movie';
+import { Box, Grid, IconButton } from '@mui/material';
+import { MovieCard } from './home/movieCard';
+import { ScrollableCardContent } from '../utils/custom-components';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { log } from 'console';
 
 interface Props {
     moviesShowData: Movie[];

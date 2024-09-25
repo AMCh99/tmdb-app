@@ -1,7 +1,7 @@
 import TrendingMovies from '../components/home/trendingMovies';
 import TrendingTvSeries from '../components/home/trendingTvSeries';
 import MainCard from '../components/home/mainCard';
-import { NavBar } from '../components/navbar';
+import { NavBar } from '../components/navbar/navbar';
 
 const dotenv = require('dotenv');
 dotenv.config();

@@ -10,7 +10,6 @@ import ReactPlayer from 'react-player';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { Movie } from '../types/movie';
 import { useEffect, useState } from 'react';
-import { ReviewsSection } from './reviews';
 
 interface Props {
     movie: Movie;
@@ -68,8 +67,8 @@ export function MovieDetailsCard(props: Props) {
                             {movie?.trailer && (
                                 <ReactPlayer
                                     url={`https://www.youtube.com/embed/${movie?.trailer[0]?.key}`}
-                                    width="70%"
-                                    height="40%"
+                                    width='70%'
+                                    height='40%'
                                     onPlay={() => {
                                         setIsVideoOn(true);
                                     }}
@@ -81,7 +80,7 @@ export function MovieDetailsCard(props: Props) {
                                     }}
                                 />
                             )}
-                            <Typography variant="body1" sx={{ width: '70%' }}>
+                            <Typography variant='body1' sx={{ width: '70%' }}>
                                 {movie?.overview}
                             </Typography>
                         </Container>
@@ -95,8 +94,8 @@ export function MovieDetailsCard(props: Props) {
                             }}
                         >
                             <Typography
-                                variant="h2"
-                                align="right"
+                                variant='h2'
+                                align='right'
                                 sx={{
                                     fontWeight: '500',
                                     textShadow: 'rgb(106, 166, 177) 2px 2px 2px'
@@ -104,12 +103,12 @@ export function MovieDetailsCard(props: Props) {
                             >
                                 {movie?.title ?? movie?.name}
                             </Typography>
-                            <Typography variant="h6" align="right">
+                            <Typography variant='h6' align='right'>
                                 {movie?.release_date ?? movie?.first_air_date} /{' '}
                                 {movie?.original_title ??
                                     movie?.original_language}
                             </Typography>
-                            <Typography align="right">
+                            <Typography align='right'>
                                 {movie?.genres &&
                                     movie?.genres.map((genre, index) => (
                                         <>
@@ -124,7 +123,7 @@ export function MovieDetailsCard(props: Props) {
                                     ))}
                             </Typography>
                             <Typography
-                                align="right"
+                                align='right'
                                 sx={{
                                     display: 'flex',
                                     width: 'min-content',
@@ -135,7 +134,7 @@ export function MovieDetailsCard(props: Props) {
                                     <WatchLaterIcon />
                                 </IconButton>
                                 <Rating
-                                    name="read-only"
+                                    name='read-only'
                                     sx={{ alignSelf: 'center' }}
                                     value={(movie?.vote_average ?? 0) / 2}
                                     readOnly

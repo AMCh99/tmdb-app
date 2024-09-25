@@ -1,27 +1,20 @@
 import {
-    alpha,
     Autocomplete,
     Box,
-    Button,
     CardActions,
     CardContent,
-    Container,
     IconButton,
-    InputAdornment,
-    InputBase,
     Rating,
-    styled,
     TextField,
     Typography
 } from '@mui/material';
-import React, { useState } from 'react';
-import { TrendingService } from '../service/trending.service';
-import { Movie } from '../types/movie';
-import { Option } from '../types/searchOption';
+import { useState } from 'react';
+import { TrendingService } from '../../service/trending.service';
+import { Movie } from '../../types/movie';
+import { Option } from '../../types/searchOption';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
-import theme from '../theme/theme';
-// https://amch99.github.io/tmdb-app/tv/248155
+import theme from '../../theme/theme';
 
 export function SearchBar() {
     const router = useRouter();

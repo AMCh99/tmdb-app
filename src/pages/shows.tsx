@@ -1,7 +1,6 @@
-import React from 'react';
-import { NavBar } from '../components/navbar';
+import { NavBar } from '../components/navbar/navbar';
 import TrendingTvSeries from '../components/home/trendingTvSeries';
-import { MovieTvList } from '../components/upcoming';
+import { MovieTvList } from '../components/MovieTvList';
 
 export default function Shows() {
     return (

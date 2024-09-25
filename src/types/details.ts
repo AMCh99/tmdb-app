@@ -1,5 +1,5 @@
-import { Cast } from "./cast";
-import { Crew } from "./crew";
+import { Cast } from './cast';
+import { Crew } from './crew';
 
 export interface Details {
     id:number,

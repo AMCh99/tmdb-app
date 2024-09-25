@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from '../../types/movie';
 import { Box, Typography } from '@mui/material';
 import { TrendingService } from '../../service/trending.service';
-import { TrendingScrollBar } from './trendingScrollableBar';
+import { TrendingScrollBar } from '../trendingScrollableBar';
 
 export default function TrendingMovies() {
     const [trendingMoviesData, setTrendingMoviesData] = useState<Movie[]>([]);
@@ -25,7 +25,7 @@ export default function TrendingMovies() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ margin: 'auto' }}>
-                <Typography variant="h6" sx={{ marginLeft: '75px' }}>
+                <Typography variant='h6' sx={{ marginLeft: '75px' }}>
                     Trending Movies
                 </Typography>
                 <TrendingScrollBar

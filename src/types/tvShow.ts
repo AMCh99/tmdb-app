@@ -1,4 +1,4 @@
-export interface TVSeries {
+export interface TvShow {
     adult: boolean;
     backdrop_path: string;
     first_air_date: string;

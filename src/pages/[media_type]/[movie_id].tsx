@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { NavBar } from '../../components/navbar';
+import { NavBar } from '../../components/navbar/navbar';
 import { Movie } from '../../types/movie';
 import { TrendingService } from '../../service/trending.service';
 import { MovieDetailsCard } from '../../components/movieDetailsCard';
 import { Container } from '@mui/material';
-import { ReviewsSection } from '../../components/reviews';
-import CastAndCrewSection from '../../components/castAndCrew';
+import { ReviewsSection } from '../../components/detailsPage/reviews';
+import CastAndCrew from '../../components/detailsPage/castAndCrew';
 
 interface RouteParams {
     movie_id: string;
@@ -41,7 +41,7 @@ export default function MoviePage() {
 
                 {typeof movie_id === 'string' &&
                     typeof media_type === 'string' && (
-                        <CastAndCrewSection movie_id={movie.id} type={media_type} />
+                        <CastAndCrew movie_id={movie.id} type={media_type} />
                     )}
 
                 {typeof movie_id === 'string' &&

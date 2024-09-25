@@ -55,7 +55,7 @@ export function MovieCard(props: Props) {
                                 alignContent: 'end'
                             }}
                         >
-                            <Typography variant="subtitle2" align="right">
+                            <Typography variant='subtitle2' align='right'>
                                 {movie.title ?? movie?.name}
                             </Typography>
                             <Box
@@ -71,7 +71,7 @@ export function MovieCard(props: Props) {
                                     </IconButton>
                                 </CardActions>
                                 <Rating
-                                    name="read-only"
+                                    name='read-only'
                                     value={(movie?.vote_average ?? 0) / 2}
                                     readOnly
                                     precision={0.1}
