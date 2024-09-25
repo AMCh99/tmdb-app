@@ -39,11 +39,11 @@ export default function CastAndCrew(props: Props) {
         return <h1>Loading...</h1>;
     }
 
-    if (details && details.cast.length > 0) {
+    if (details) {
         return (
             <>
-                <CastAndCrewSection castList={details.cast} crewList={null} />
-                <CastAndCrewSection castList={null} crewList={details.crew} />
+                {details.cast.length > 0 && <CastAndCrewSection castList={details.cast} crewList={null} />}
+                {details.crew.length > 0 && <CastAndCrewSection castList={null} crewList={details.crew} />}
             </>
         );
     }
