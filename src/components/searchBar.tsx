@@ -54,15 +54,21 @@ export function SearchBar() {
         setOption(option[0]);
     };
 
+    // const goToMoviePage = (option?: Option) => {
+    //     if (option?.media_type && option?.id) {
+    //         router.push({
+    //             pathname: `/${option.media_type}/[id]`,
+    //             query: { id: option.id }
+    //         });
+    //     } else {
+    //         console.log("Invalid option:", option);
+    //     }
+    // };
+
     const goToMoviePage = (option?: Option) => {
-        if (option?.media_type && option?.id) {
-            router.push({
-                pathname: `/${option.media_type}/[id]`,
-                query: { id: option.id }
-            });
-        } else {
-            console.log("Invalid option:", option);
-        }
+        option?.media_type &&
+            option?.id &&
+            router.push(`${option?.media_type}/${option?.id}`);
     };
 
     return (
