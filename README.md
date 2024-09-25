@@ -11,7 +11,7 @@ Available here: [TMDb App Demo](https://amch99.github.io/tmdb-app/)
 - **TypeScript**
 - **Next.js** (v14.2.12)
 - **React.js**
-- **Material UI**
+- **Material UI** ([Documentation](https://mui.com/material-ui/getting-started/))
 - **TMDb API** ([Documentation](https://www.themoviedb.org/documentation/api))
 
 ## Features
