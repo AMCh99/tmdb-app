@@ -8,7 +8,7 @@ interface Props {}
 export default function MainCard(props: Props) {
     const [trending, setTrending] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [currentMovie, setCurentMovie] = useState<Movie | null>(null);
+    const [isCurrentMovie, setIsCurrentMovie] = useState<Movie | null>(null);
     const [counter, setCounter] = useState<number>(0);
     const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
 
@@ -22,19 +22,19 @@ export default function MainCard(props: Props) {
                 data[0]?.id,
                 data[0]?.media_type
             );
-            setCurentMovie(details);
+            setIsCurrentMovie(details);
         };
         getData();
     }, []);
 
     useEffect(() => {
-        if (!isVideoOn && currentMovie) {
+        if (!isVideoOn && isCurrentMovie) {
             setTimeout(async () => {
                 const details = await TrendingService.getDetails(
                     trending[counter]?.id,
                     trending[counter]?.media_type
                 );
-                setCurentMovie(details);
+                setIsCurrentMovie(details);
                 counter >= trending.length - 1
                     ? setCounter(0)
                     : setCounter(counter + 1);
@@ -46,10 +46,10 @@ export default function MainCard(props: Props) {
         return <h1>Loading...</h1>;
     }
 
-    if (currentMovie != null) {
+    if (isCurrentMovie != null) {
         return (
             <MovieDetailsCard
-                movie={currentMovie}
+                movie={isCurrentMovie}
                 setIsVideoOn={setIsVideoOn}
             />
         );
