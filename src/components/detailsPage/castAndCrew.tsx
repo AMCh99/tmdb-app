@@ -1,24 +1,11 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    Grid,
-    Typography
-} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { TrendingService } from '../../service/trending.service';
-import { Copyright } from '../Copyright';
-import { Review } from '../../types/review';
-import Paper from '@mui/material/Paper';
 import { Details } from '../../types/details';
-import { Cast } from '../../types/cast';
-import { Crew } from '../../types/crew';
 import { CastAndCrewSection } from './CastCrewSection';
 
 interface Props {
-    movie_id: number;
-    type: string;
+    readonly movie_id: number;
+    readonly type: string;
 }
 export default function CastAndCrew(props: Props) {
     const { movie_id, type } = props;

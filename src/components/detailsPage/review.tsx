@@ -4,7 +4,7 @@ import { Review } from '../../types/review';
 import Paper from '@mui/material/Paper';
 
 interface Props {
-    review: Review;
+    readonly review: Review;
 }
 
 export default function ReviewElement(props: Props) {

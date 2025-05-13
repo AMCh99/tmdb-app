@@ -7,13 +7,13 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 interface Props {
-    moviesShowData: Movie[];
-    id: string;
-    media_type: 'movie' | 'tv';
+    readonly moviesShowData: Movie[];
+    readonly id: string;
+    readonly media_type: 'movie' | 'tv';
 }
 
 export function TrendingScrollBar(props: Props) {
-    const { moviesShowData, id } = props;
+    const { moviesShowData, id, media_type } = props;
     const [width, setWidth] = useState<number>(1000);
 
     const ELEMENT_WIDTH = 210;
@@ -71,7 +71,7 @@ export function TrendingScrollBar(props: Props) {
         step: number
     ) => {
         let scrollAmount = 0;
-        var slideTimer = setInterval(function () {
+        let slideTimer = setInterval(function () {
             if (direction == 'left') {
                 element.scrollLeft -= step;
             } else {
@@ -85,7 +85,6 @@ export function TrendingScrollBar(props: Props) {
     };
 
     return (
-        <>
             <Box sx={{ display: 'flex', p: 0 }}>
                 <IconButton
                     onClick={back}
@@ -123,7 +122,7 @@ export function TrendingScrollBar(props: Props) {
                                 <MovieCard
                                     movie={movie}
                                     key={movie.id + 'mov_card'}
-                                    media_type={props.media_type}
+                                    media_type={media_type}
                                 />
                             );
                         })}
@@ -142,6 +141,5 @@ export function TrendingScrollBar(props: Props) {
                     <ArrowForwardIosIcon />
                 </IconButton>
             </Box>
-        </>
     );
 }

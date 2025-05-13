@@ -12,8 +12,8 @@ import { Movie } from '../types/movie';
 import { useEffect, useState } from 'react';
 
 interface Props {
-    movie: Movie;
-    setIsVideoOn: Function;
+    readonly movie: Movie;
+    readonly setIsVideoOn: Function;
 }
 
 export function MovieDetailsCard(props: Props) {
@@ -116,7 +116,7 @@ export function MovieDetailsCard(props: Props) {
                                                 {genre.name}
                                             </span>
                                             {index !==
-                                                movie.genres.length - 1 && (
+                                                movie?.genres?.length - 1 && (
                                                 <span> / </span>
                                             )}
                                         </>

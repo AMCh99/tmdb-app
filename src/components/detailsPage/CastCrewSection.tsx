@@ -12,8 +12,8 @@ import { Cast } from '../../types/cast';
 import { Crew } from '../../types/crew';
 
 interface Props {
-    castList: Cast[] | null;
-    crewList: Crew[] | null;
+    readonly castList: Cast[] | null;
+    readonly crewList: Crew[] | null;
 }
 
 export function CastAndCrewSection(props: Props) {
@@ -43,7 +43,7 @@ export function CastAndCrewSection(props: Props) {
                                 .slice(0, itemsSlice)
                                 .map((item: Cast | Crew) => {
                                     return (
-                                        <Grid item md={2} sx={{ mb: 3 }}>
+                                        <Grid key={item.id} item md={2} sx={{ mb: 3 }}>
                                             <Avatar
                                                 alt={item.name}
                                                 src={

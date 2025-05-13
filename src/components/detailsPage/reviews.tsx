@@ -5,8 +5,8 @@ import { Review } from '../../types/review';
 import ReviewElement from './review';
 
 interface Props {
-    movie_id: number;
-    type: string;
+    readonly movie_id: number;
+    readonly type: string;
 }
 
 export function ReviewsSection(props: Props) {
@@ -35,7 +35,7 @@ export function ReviewsSection(props: Props) {
                     Reviews
                 </Typography>
                 {reviews.map((review: Review) => {
-                    return <ReviewElement review={review} />;
+                    return <ReviewElement key={review.id} review={review} />;
                 })}
             </Container>
         );

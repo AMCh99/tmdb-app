@@ -14,13 +14,13 @@ import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { useRouter } from 'next/router';
 
 interface Props {
-    movie: Movie;
-    media_type: 'movie' | 'tv';
+    readonly movie: Movie;
+    readonly media_type: 'movie' | 'tv';
 }
 
 export function MovieCard(props: Props) {
-    const { movie } = props;
-    const [isMouseOver, setMouseOver] = useState<boolean>(false);
+    const { movie, media_type } = props;
+    const [isMouseOver, setIsMouseOver] = useState<boolean>(false);
     const router = useRouter();
 
     return (
@@ -28,7 +28,7 @@ export function MovieCard(props: Props) {
             item
             onClick={() =>
                 router.push(
-                    `/${movie.media_type ?? props.media_type}/${movie.id}`
+                    `/${movie.media_type ?? media_type}/${movie.id}`
                 )
             }
         >
@@ -41,10 +41,10 @@ export function MovieCard(props: Props) {
                         backgroundPosition: 'center',
                     }}
                     onMouseEnter={() => {
-                        setMouseOver(true);
+                        setIsMouseOver(true);
                     }}
                     onMouseLeave={() => {
-                        setMouseOver(false);
+                        setIsMouseOver(false);
                     }}
                 >
                     {isMouseOver && (

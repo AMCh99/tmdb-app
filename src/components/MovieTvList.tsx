@@ -5,8 +5,8 @@ import { TrendingService } from '../service/trending.service';
 import { TrendingScrollBar } from './trendingScrollableBar';
 
 interface Props {
-    media_type: 'movie' | 'tv';
-    listType: 'upcoming' | 'airing_today' | 'top_rated';
+    readonly media_type: 'movie' | 'tv';
+    readonly listType: 'upcoming' | 'airing_today' | 'top_rated';
 }
 
 const titleDictionary = {
