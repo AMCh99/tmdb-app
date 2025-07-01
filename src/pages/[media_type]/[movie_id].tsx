@@ -37,7 +37,11 @@ export default function MoviePage() {
         return (
             <>
                 <NavBar />
-                <MovieDetailsCard movie={movie} setIsVideoOn={setIsVideoOn} />
+                <MovieDetailsCard
+                    movie={movie}
+                    setIsVideoOn={setIsVideoOn}
+                    isFading={false}
+                />
 
                 {typeof movie_id === 'string' &&
                     typeof media_type === 'string' && (

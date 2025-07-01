@@ -95,29 +95,52 @@ class TrendingService {
         return this.getDatabaseData(url);
     }
 
-    static async getCreditDetails(movie_id: number, type: string)  {
-        const url = `https://api.themoviedb.org/3/${type}/${movie_id}/credits`;
-        const dotenv = require('dotenv');
-        dotenv.config();
-        return fetch(url, {
+    static async getCreditDetails(id: number, type: string) {
+        const options = {
             method: 'GET',
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
             }
-        })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('error');
-                }
+        };
 
-                const res = await response.json();
-                return res;
-            })
-            .catch((error) => {
-                console.log(error);
-                return [];
-            });
+        const res = await fetch(
+            `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
+            options
+        );
+        return res.json();
+    }
+
+    static async getPersonDetails(id: number) {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
+            }
+        };
+
+        const res = await fetch(
+            `https://api.themoviedb.org/3/person/${id}?language=en-US`,
+            options
+        );
+        return res.json();
+    }
+
+    static async getPersonMovieCredits(id: number) {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
+            }
+        };
+
+        const res = await fetch(
+            `https://api.themoviedb.org/3/person/${id}/movie_credits?language=en-US`,
+            options
+        );
+        return res.json();
     }
 }
 

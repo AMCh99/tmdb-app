@@ -16,6 +16,7 @@ export default function CastAndCrew(props: Props) {
     useEffect(() => {
         const getReviews = async () => {
             const data = await TrendingService.getCreditDetails(movie_id, type);
+            console.log(data);
             setDetails(data);
             setLoading(false);
         };
@@ -29,8 +30,8 @@ export default function CastAndCrew(props: Props) {
     if (details) {
         return (
             <>
-                {details.cast.length > 0 && <CastAndCrewSection castList={details.cast} crewList={null} />}
-                {details.crew.length > 0 && <CastAndCrewSection castList={null} crewList={details.crew} />}
+                {details.cast && details.cast.length > 0 && <CastAndCrewSection castList={details.cast} crewList={null} />}
+                {details.crew && details.crew.length > 0 && <CastAndCrewSection castList={null} crewList={details.crew} />}
             </>
         );
     }

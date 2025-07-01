@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import { Cast } from '../../types/cast';
 import { Crew } from '../../types/crew';
+import { useRouter } from 'next/router';
 
 interface Props {
     readonly castList: Cast[] | null;
@@ -21,6 +22,7 @@ export function CastAndCrewSection(props: Props) {
     const defaultSlice = castList ? 12 : 6;
     const [itemsSlice, setitemsSlice] = useState<number>(defaultSlice);
     const details = castList ? castList : crewList;
+    const router = useRouter();
 
     const handleChangeSlice = () => {
         if (details) {
@@ -43,7 +45,23 @@ export function CastAndCrewSection(props: Props) {
                                 .slice(0, itemsSlice)
                                 .map((item: Cast | Crew) => {
                                     return (
-                                        <Grid key={item.id} item md={2} sx={{ mb: 3 }}>
+                                        <Grid
+                                            key={item.id}
+                                            item
+                                            md={2}
+                                            sx={{
+                                                mb: 3,
+                                                cursor: 'pointer',
+                                                '&:hover': {
+                                                    transform: 'scale(1.05)',
+                                                    transition:
+                                                        'transform 0.2s ease-in-out'
+                                                }
+                                            }}
+                                            onClick={() =>
+                                                router.push(`/person/${item.id}`)
+                                            }
+                                        >
                                             <Avatar
                                                 alt={item.name}
                                                 src={
@@ -53,7 +71,7 @@ export function CastAndCrewSection(props: Props) {
                                                 sx={{
                                                     width: 150,
                                                     height: 150,
-                                                    margin: 'auto',
+                                                    margin: 'auto'
                                                 }}
                                             />
                                             <Box
@@ -81,7 +99,9 @@ export function CastAndCrewSection(props: Props) {
                                 sx={{ display: 'flex', margin: 'auto' }}
                                 onClick={handleChangeSlice}
                             >
-                                {itemsSlice != defaultSlice ? 'Show less' :'Show all'}
+                                {itemsSlice != defaultSlice
+                                    ? 'Show less'
+                                    : 'Show all'}
                             </Button>
                         )}
                     </Paper>
