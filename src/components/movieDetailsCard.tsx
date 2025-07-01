@@ -14,47 +14,36 @@ import { useEffect, useState } from 'react';
 interface Props {
     readonly movie: Movie;
     readonly setIsVideoOn: Function;
+    readonly isFading: boolean;
 }
 
 export function MovieDetailsCard(props: Props) {
-    const { movie, setIsVideoOn } = props;
+    const { movie, setIsVideoOn, isFading } = props;
     const [opacity, setOpacity] = useState(0);
-    const finalOpacity = 100;
 
     useEffect(() => {
-        setOpacity(0);
-    }, [movie?.backdrop_path]);
-
-    useEffect(() => {
-        const fadeIn = () => {
-            setOpacity((prevOpacity) => {
-                if (prevOpacity < finalOpacity) {
-                    return Math.min(prevOpacity + 2.5, finalOpacity);
-                }
-                return prevOpacity;
-            });
-        };
-
-        const timer = setInterval(fadeIn, 10);
-
-        return () => clearInterval(timer);
-    }, [opacity]);
-    
+        if (isFading) {
+            setOpacity(0);
+        } else {
+            const timer = setTimeout(() => setOpacity(1), 100); // Small delay to ensure transition triggers
+            return () => clearTimeout(timer);
+        }
+    }, [isFading, movie?.backdrop_path]);
 
     return (
         <Box
             sx={{
                 backgroundImage: `linear-gradient(to bottom, rgba(0,0,0, 0.0), rgba(18, 18, 18, 1) 98%),url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
-                opacity: `${opacity}%`,
+                opacity: opacity,
+                transition: 'opacity 1s ease-in-out',
                 height: '85vh',
                 backgroundSize: 'cover',
                 backgroundPosition: 'top',
-                transform: 'translate3d(0, 0, 0)',
-                willChange: 'transform',
+                willChange: 'opacity'
             }}
         >
             <Box sx={{ ml: 4, mr: 4 }}>
-                <Grid container spacing={2} sx={{opacity:opacity}}>
+                <Grid container spacing={2}>
                     <Grid item md={6}>
                         <Container
                             sx={{

@@ -1,9 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Movie } from '../../types/movie';
 import { TrendingService } from '../../service/trending.service';
 import { MovieDetailsCard } from '../movieDetailsCard';
 
 interface Props {}
+
+function useInterval(callback: () => void, delay: number | null) {
+    const savedCallback = useRef<() => void>();
+
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            if (savedCallback.current) {
+                savedCallback.current();
+            }
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 export default function MainCard(props: Props) {
     const [trending, setTrending] = useState<Movie[]>([]);
@@ -11,36 +31,50 @@ export default function MainCard(props: Props) {
     const [isCurrentMovie, setIsCurrentMovie] = useState<Movie | null>(null);
     const [counter, setCounter] = useState<number>(0);
     const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
+    const [isFading, setIsFading] = useState<boolean>(false);
 
     useEffect(() => {
         const getData = async () => {
             const data = await TrendingService.getTrendingAllToday();
             setTrending(data);
             setLoading(false);
-
-            const details = await TrendingService.getDetails(
-                data[0]?.id,
-                data[0]?.media_type
-            );
-            setIsCurrentMovie(details);
         };
         getData();
     }, []);
 
+    useInterval(
+        () => {
+            if (trending.length > 0) {
+                setIsFading(true);
+                setTimeout(async () => {
+                    const details = await TrendingService.getDetails(
+                        trending[counter]?.id,
+                        trending[counter]?.media_type
+                    );
+                    setIsCurrentMovie(details);
+                    setCounter((prevCounter) =>
+                        prevCounter >= trending.length - 1 ? 0 : prevCounter + 1
+                    );
+                    setIsFading(false);
+                }, 1000); // Corresponds to the fade-out duration
+            }
+        },
+        !isVideoOn && !isFading ? 12000 : null
+    );
+
     useEffect(() => {
-        if (!isVideoOn && isCurrentMovie) {
-            setTimeout(async () => {
+        const setInitialMovie = async () => {
+            if (trending.length > 0) {
                 const details = await TrendingService.getDetails(
-                    trending[counter]?.id,
-                    trending[counter]?.media_type
+                    trending[0]?.id,
+                    trending[0]?.media_type
                 );
                 setIsCurrentMovie(details);
-                counter >= trending.length - 1
-                    ? setCounter(0)
-                    : setCounter(counter + 1);
-            }, 12000);
-        }
-    });
+                setCounter(1);
+            }
+        };
+        setInitialMovie();
+    }, [trending]);
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -51,7 +85,9 @@ export default function MainCard(props: Props) {
             <MovieDetailsCard
                 movie={isCurrentMovie}
                 setIsVideoOn={setIsVideoOn}
+                isFading={isFading}
             />
         );
     }
+    return null;
 }
