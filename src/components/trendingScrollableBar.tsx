@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Movie } from '../types/movie';
 import { Box, Grid, IconButton } from '@mui/material';
 import { MovieCard } from './home/movieCard';
@@ -15,12 +15,10 @@ interface Props {
 export function TrendingScrollBar(props: Props) {
     const { moviesShowData, id, media_type } = props;
     const [width, setWidth] = useState<number>(1000);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
     const ELEMENT_WIDTH = 210;
-    const SPEED = 3;
-    const STEP = 10;
     const BUTTONS_WIDTH = 140;
-    const SCROLL_ELEMENTS = 5;
 
     const setNewWidth = () => {
         const calculateWidth =
@@ -43,103 +41,70 @@ export function TrendingScrollBar(props: Props) {
         };
     }, []);
 
-    const forward = () => {
-        sideScroll(
-            document.getElementById(`scrollable_${id}`),
-            'right',
-            SPEED,
-            ELEMENT_WIDTH * SCROLL_ELEMENTS,
-            STEP
-        );
-    };
-
-    const back = () => {
-        sideScroll(
-            document.getElementById(`scrollable_${id}`),
-            'left',
-            SPEED,
-            ELEMENT_WIDTH * SCROLL_ELEMENTS,
-            STEP
-        );
-    };
-
-    const sideScroll = (
-        element: any,
-        direction: string,
-        speed: number,
-        distance: number,
-        step: number
-    ) => {
-        let scrollAmount = 0;
-        let slideTimer = setInterval(function () {
-            if (direction == 'left') {
-                element.scrollLeft -= step;
-            } else {
-                element.scrollLeft += step;
-            }
-            scrollAmount += step;
-            if (scrollAmount >= distance) {
-                window.clearInterval(slideTimer);
-            }
-        }, speed);
+    const scroll = (scrollOffset: number) => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
+        }
     };
 
     return (
-            <Box sx={{ display: 'flex', p: 0 }}>
-                <IconButton
-                    onClick={back}
-                    sx={{
-                        margin: '10px',
-                        p: 0,
-                        width: '50px',
-                        borderRadius: '5px'
-                    }}
-                >
-                    <ArrowBackIosIcon />
-                </IconButton>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton
+                onClick={() => scroll(-width)}
+                sx={{
+                    margin: '10px',
+                    p: 0,
+                    width: '50px',
+                    borderRadius: '5px'
+                }}
+            >
+                <ArrowBackIosIcon />
+            </IconButton>
 
-                <ScrollableCardContent
-                    id={`scrollable_${id}`}
+            <ScrollableCardContent
+                id={`scrollable_${id}`}
+                ref={scrollRef}
+                sx={{
+                    m: 0,
+                    p: 0,
+                    width: `${width}px`,
+                    overflowX: 'scroll',
+                    scrollbarWidth: 'none', // Firefox
+                    '&::-webkit-scrollbar': {
+                        display: 'none' // Chrome, Safari, Opera
+                    }
+                }}
+            >
+                <Grid
                     sx={{
+                        display: 'flex',
                         m: 0,
-                        p: 0,
-                        width: `${width}px`,
-                        transform: 'translate3d(0, 0, 0)',
-                        willChange: 'transform'
+                        p: 0
                     }}
                 >
-                    <Grid
-                        sx={{
-                            display: 'flex',
-                            scrollSnapType: 'x mandatory',
-                            scrollSnapAlignl: 'center',
-                            m: 0,
-                            p: 0
-                        }}
-                    >
-                        {moviesShowData?.map((movie) => {
-                            return (
-                                <MovieCard
-                                    movie={movie}
-                                    key={movie.id + 'mov_card'}
-                                    media_type={media_type}
-                                />
-                            );
-                        })}
-                    </Grid>
-                </ScrollableCardContent>
+                    {moviesShowData?.map((movie) => {
+                        return (
+                            <MovieCard
+                                movie={movie}
+                                key={movie.id + 'mov_card'}
+                                media_type={media_type}
+                            />
+                        );
+                    })}
+                </Grid>
+            </ScrollableCardContent>
 
-                <IconButton
-                    onClick={forward}
-                    sx={{
-                        margin: '10px',
-                        p: 0,
-                        width: '50px',
-                        borderRadius: '5px'
-                    }}
-                >
-                    <ArrowForwardIosIcon />
-                </IconButton>
-            </Box>
+            <IconButton
+                onClick={() => scroll(width)}
+                sx={{
+                    margin: '10px',
+                    p: 0,
+                    width: '50px',
+                    borderRadius: '5px'
+                }}
+            >
+                <ArrowForwardIosIcon />
+            </IconButton>
+        </Box>
     );
 }
