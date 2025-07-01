@@ -16,7 +16,6 @@ export default function CastAndCrew(props: Props) {
     useEffect(() => {
         const getReviews = async () => {
             const data = await TrendingService.getCreditDetails(movie_id, type);
-            console.log(data);
             setDetails(data);
             setLoading(false);
         };

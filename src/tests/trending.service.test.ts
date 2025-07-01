@@ -106,7 +106,7 @@ describe('TrendingService', () => {
         const result = await TrendingService.getCreditDetails(123, 'movie');
 
         expect(fetch).toHaveBeenCalledWith(
-            'https://api.themoviedb.org/3/movie/123/credits',
+            'https://api.themoviedb.org/3/movie/123/credits?language=en-US',
             expect.anything()
         );
         expect(result).toEqual(mockData);
