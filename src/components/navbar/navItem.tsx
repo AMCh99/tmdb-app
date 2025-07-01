@@ -15,7 +15,13 @@ export const NavItem = (props: Props) => {
     return (
         <ListItem
             sx={{
-                bgcolor: isActive ? theme.palette.primary.main : ''
+                bgcolor: isActive ? theme.palette.primary.main : 'transparent',
+                transition: 'background-color 0.3s ease',
+                '&:hover': {
+                    bgcolor: isActive
+                        ? theme.palette.primary.main
+                        : 'rgba(255, 255, 255, 0.1)'
+                }
             }}
         >
             <Link
