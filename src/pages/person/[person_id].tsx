@@ -1,38 +1,24 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { TrendingService } from '../../service/trending.service';
-import { Person } from '../../types/person';
 import { NavBar } from '../../components/navbar/navbar';
 import { Container, Grid, Typography, Paper, Avatar, Box } from '@mui/material';
 import { TrendingScrollBar } from '../../components/trendingScrollableBar';
-import { Movie } from '../../types/movie';
 import theme from '../../theme/theme';
+import { usePersonDetails } from '../../hooks/usePersonDetails';
+import { usePersonMovieCredits } from '../../hooks/usePersonMovieCredits';
 
 export default function PersonPage() {
     const router = useRouter();
     const { person_id } = router.query;
-    const [person, setPerson] = useState<Person | null>(null);
-    const [knownFor, setKnownFor] = useState<Movie[]>([]);
 
-    useEffect(() => {
-        if (typeof person_id === 'string') {
-            const getData = async () => {
-                const personData = await TrendingService.getPersonDetails(
-                    parseInt(person_id)
-                );
-                setPerson(personData);
+    const id = typeof person_id === 'string' ? parseInt(person_id) : undefined;
+    const { data: person, isLoading, error } = usePersonDetails(id as number);
+    const { data: movieCredits, isLoading: isKnownForLoading, error: knownForError } = usePersonMovieCredits(id as number);
 
-                const movieCredits = await TrendingService.getPersonMovieCredits(
-                    parseInt(person_id)
-                );
-                setKnownFor(movieCredits.cast);
-            };
-            getData();
-        }
-    }, [person_id]);
-
-    if (!person) {
+    if (isLoading || isKnownForLoading) {
         return <h1>Loading...</h1>;
+    }
+    if (error || !person || knownForError) {
+        return <h1>Error loading person details.</h1>;
     }
     
     return (
@@ -64,7 +50,7 @@ export default function PersonPage() {
                             />
                         </Grid>
                         <Grid item xs={12} md={8}>
-                            <Typography variant="h3" gutterBottom sx={{ color: theme.palette.secondary.main, fontWeight: 'bold' }}>
+                            <Typography variant="h3" gutterBottom sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>
                                 {person.name}
                             </Typography>
                             {person.also_known_as && person.also_known_as.length > 0 && (
@@ -100,12 +86,12 @@ export default function PersonPage() {
                         </Grid>
                     </Grid>
                 </Paper>
-                {knownFor?.length > 0 && (
+                {movieCredits?.cast?.length > 0 && (
                     <Box sx={{ mt: 4 }}>
                         <Typography variant="h5" gutterBottom sx={{ color: 'white', mb: 2 }}>
                             Known For
                         </Typography>
-                        <TrendingScrollBar moviesShowData={knownFor} id="known-for" media_type="movie" />
+                        <TrendingScrollBar moviesShowData={movieCredits.cast} id="known-for" media_type="movie" />
                     </Box>
                 )}
             </Container>

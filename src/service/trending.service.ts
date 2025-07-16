@@ -1,146 +1,63 @@
 class TrendingService {
-    static async getDatabaseData(url: string) {
-        const dotenv = require('dotenv');
-        dotenv.config();
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
-            }
-        })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('error');
-                }
-
-                const res = await response.json();
-                return res.results;
-            })
-            .catch((error) => {
-                console.log(error);
-                return [];
-            });
-    }
-
     static async getTrendingMovies() {
-        const url =
-            'https://api.themoviedb.org/3/trending/movie/week?language=en-US';
-        return this.getDatabaseData(url);
+        const res = await fetch('/api/tmdbTrending?type=movie&time=week');
+        if (!res.ok) throw new Error('Failed to fetch trending movies');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getTrendingTvShows() {
-        const url =
-            'https://api.themoviedb.org/3/trending/tv/week?language=en-US';
-        return this.getDatabaseData(url);
+        const res = await fetch('/api/tmdbTrending?type=tv&time=week');
+        if (!res.ok) throw new Error('Failed to fetch trending tv shows');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getTrendingAllToday() {
-        const url =
-            'https://api.themoviedb.org/3/trending/all/day?language=en-US';
-        return this.getDatabaseData(url);
+        const res = await fetch('/api/tmdbTrending?type=all&time=day');
+        if (!res.ok) throw new Error('Failed to fetch trending all today');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getVideos(movie_id: number, type: string) {
-        const url = `https://api.themoviedb.org/3/${type}/${movie_id}/videos`;
-        return this.getDatabaseData(url);
+        const res = await fetch(`/api/tmdbVideos?id=${movie_id}&type=${type}`);
+        if (!res.ok) throw new Error('Failed to fetch videos');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getDetails(movie_id: number, type: string) {
-        const url = `https://api.themoviedb.org/3/${type}/${movie_id}`;
-
-        try {
-            const movieDetailsPromise = fetch(url, {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
-                }
-            }).then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('Error fetching movie details');
-                }
-                return response.json();
-            });
-
-            const movieVideosPromise = this.getVideos(movie_id, type);
-
-            const [movieDetails, movieVideos] = await Promise.all([
-                movieDetailsPromise,
-                movieVideosPromise
-            ]);
-
-            const trailer = movieVideos?.filter(
-                (item: any) => item?.type === 'Trailer'
-            );
-            return { ...movieDetails, trailer };
-        } catch (error) {
-            console.error(error);
-            return { movieDetails: null, movieVideos: null };
-        }
+        const res = await fetch(`/api/tmdbDetails?id=${movie_id}&type=${type}`);
+        if (!res.ok) throw new Error('Failed to fetch details');
+        return await res.json();
     }
 
     static async getSearching(query: string) {
-        const url = `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=1`;
-        return this.getDatabaseData(url);
+        const res = await fetch(`/api/tmdbSearch?query=${encodeURIComponent(query)}`);
+        if (!res.ok) throw new Error('Failed to search');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getLists(type: string, list: string) {
-        const url = `https://api.themoviedb.org/3/${type}/${list}?language=en-US&page=1`;
-        return this.getDatabaseData(url);
+        const res = await fetch(`/api/tmdbLists?type=${type}&list=${list}`);
+        if (!res.ok) throw new Error('Failed to fetch lists');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getReviews(movie_id: number, type: string) {
-        const url = `https://api.themoviedb.org/3/${type}/${movie_id}/reviews`;
-        return this.getDatabaseData(url);
+        const res = await fetch(`/api/tmdbReviews?id=${movie_id}&type=${type}`);
+        if (!res.ok) throw new Error('Failed to fetch reviews');
+        const data = await res.json();
+        return data.results;
     }
 
     static async getCreditDetails(id: number, type: string) {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
-            }
-        };
-
-        const res = await fetch(
-            `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
-            options
-        );
-        return res.json();
-    }
-
-    static async getPersonDetails(id: number) {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
-            }
-        };
-
-        const res = await fetch(
-            `https://api.themoviedb.org/3/person/${id}?language=en-US`,
-            options
-        );
-        return res.json();
-    }
-
-    static async getPersonMovieCredits(id: number) {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`
-            }
-        };
-
-        const res = await fetch(
-            `https://api.themoviedb.org/3/person/${id}/movie_credits?language=en-US`,
-            options
-        );
-        return res.json();
+        const res = await fetch(`/api/tmdbCredits?id=${id}&type=${type}`);
+        if (!res.ok) throw new Error('Failed to fetch credits');
+        return await res.json();
     }
 }
 
