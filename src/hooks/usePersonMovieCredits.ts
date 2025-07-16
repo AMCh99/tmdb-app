@@ -4,7 +4,7 @@ export function usePersonMovieCredits(id: number) {
   return useQuery({
     queryKey: ['person-movie-credits', id],
     queryFn: async () => {
-      const res = await fetch(`/api/tmdbPersonMovieCredits?id=${id}`);
+      const res = await fetch(`/tmdb-app/api/tmdbPersonMovieCredits?id=${id}`);
       if (!res.ok) throw new Error('Failed to fetch person movie credits');
       return res.json();
     },

@@ -5,8 +5,8 @@
 name: Deploy Next.js site to Pages
 
 env:
-  GRETTING: xdxdxd
   NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
+  NEXT_PUBLIC_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}
 
 on:
   # Runs on pushes targeting the default branch
@@ -39,11 +39,9 @@ jobs:
         run: echo "${{ secrets.NEXT_PUBLIC_TOKEN }}"
         env:
           NEXT_PUBLIC_TOKEN: ${{ secrets.NEXT_PUBLIC_TOKEN }}
-          GRETTING: xdxdxd
+          NEXT_PUBLIC_ENVIRONMENT: ${{secrets.NEXT_PUBLIC_ENVIRONMENT}}
       - name: Print homepage URL
         run: echo "Host https://$HOST_NAME.dev"
-      - name: "Say Hello Mona it's Monday"
-        run: echo "Say Hello Mona it's Monday ${{ env.GRETTING }}"
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -101,8 +99,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Set up environment variables
+      - name: Set up the token
         run: echo "NEXT_PUBLIC_TOKEN=${{ secrets.NEXT_PUBLIC_TOKEN }}"
+      - name: Set up environment
+        run: echo "NEXT_PUBLIC_ENVIRONMENT=${{ secrets.NEXT_PUBLIC_ENVIRONMENT }}"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
