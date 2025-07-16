@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { NavBar } from '../../components/navbar/navbar';
-import { Movie } from '../../types/movie';
-import { TrendingService } from '../../service/trending.service';
 import { MovieDetailsCard } from '../../components/movieDetailsCard';
-import { Container } from '@mui/material';
 import { ReviewsSection } from '../../components/detailsPage/reviews';
 import CastAndCrew from '../../components/detailsPage/castAndCrew';
+import { useMovieDetails } from '../../hooks/useMovieDetails';
 
 interface RouteParams {
     movie_id: string;
@@ -16,21 +14,9 @@ interface RouteParams {
 export default function MoviePage() {
     const router = useRouter();
     const { movie_id, media_type } = router.query;
-    const [movie, setMovie] = useState<Movie | null>(null);
     const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (typeof movie_id === 'string' && typeof media_type === 'string') {
-            const getData = async () => {
-                const details = await TrendingService.getDetails(
-                    parseInt(movie_id),
-                    media_type
-                );
-                setMovie(details);
-            };
-            getData();
-        }
-    }, [movie_id, media_type]);
+    const {data:movie} = useMovieDetails(movie_id as unknown as number, media_type as string)
 
 
     if (movie != null)
@@ -45,12 +31,12 @@ export default function MoviePage() {
 
                 {typeof movie_id === 'string' &&
                     typeof media_type === 'string' && (
-                        <CastAndCrew movie_id={movie.id} type={media_type} />
+                        <CastAndCrew movie_id={movie.id} media_type={media_type} />
                     )}
 
                 {typeof movie_id === 'string' &&
                     typeof media_type === 'string' && (
-                        <ReviewsSection movie_id={movie.id} type={media_type} />
+                        <ReviewsSection movie_id={movie.id} media_type={media_type} />
                     )}
             </>
         );

@@ -9,41 +9,26 @@ import {
     Typography
 } from '@mui/material';
 import { useState } from 'react';
-import { TrendingService } from '../../service/trending.service';
-import { Movie } from '../../types/movie';
 import { Option } from '../../types/searchOption';
 import { useRouter } from 'next/router';
 import SearchIcon from '@mui/icons-material/Search';
 import theme from '../../theme/theme';
+import { useSearchMulti } from '../../hooks/useSearchMulti';
+import Image from 'next/image'
 
 export function SearchBar() {
     const router = useRouter();
-
-    const [searchingOptions, setSearchingOptions] = useState<Option[]>([]);
+    const [searchValue, setSearchValue] = useState('');
+    const { data: searchingOptions = [] } = useSearchMulti(searchValue);
     const [option, setOption] = useState<Option>();
 
-    const handleOptions = async (event: any) => {
-        const searchData = await TrendingService.getSearching(
-            event.target.value
-        );
-        const options: any = [];
-        searchData.map((movie: Movie) =>
-            options.push({
-                label: movie.name ?? movie.title,
-                id: movie.id,
-                media_type: movie.media_type,
-                poster_path: movie.poster_path,
-                vote_average: movie.vote_average,
-                release_date: movie.release_date
-            })
-        );
-        console.log(options);
-        setSearchingOptions(options);
+    const handleInputChange = (event: any) => {
+        setSearchValue(event.target.value);
     };
 
     const handleChange = (value: string) => {
         const option = searchingOptions.filter(
-            (movie) => movie.label.toLowerCase() == value?.toLowerCase()
+            (movie: any) => (movie.name ?? movie.title)?.toLowerCase() === value?.toLowerCase()
         );
         setOption(option[0]);
     };
@@ -53,48 +38,38 @@ export function SearchBar() {
             option?.id &&
             router.push(
                 `/${option.media_type}/${option.id}`
-            ) 
+            )
     };
 
+    console.log(searchingOptions)
     return (
-        <form style={{ display: 'flex' }}>
+        <Box>
             <Autocomplete
-                disablePortal
-                id="searchBar"
-                options={searchingOptions}
                 freeSolo
-                disableClearable
-                onInputChange={(event: any) => {
-                    handleChange(event.target.textContent);
-                }}
+                options={searchingOptions}
+                getOptionLabel={(option: any) => option.name ?? option.title ?? ''}
+                onInputChange={(_, value) => handleChange(value)}
+                onChange={(_, value) => goToMoviePage(value as Option)}
                 renderOption={(props, option) => {
                     return (
                         <Box
                             component={'li'}
-                            // sx={{
-                            //     display: 'flex',
-                            //     justifyContent: 'space-between',
-                            //     '&:hover':{
-                            //         bgcolor: theme.palette.primary.main,
-                            //         textShadow: 'rgb(0,0,0) 1px 1px 1px'
-                            //     }
-
-                            // }}
                             {...props}
                             onClick={() => {
                                 goToMoviePage(option);
                                 handleChange(option.label);
                             }}
                         >
-                            <img
+                            <Image
                                 loading="lazy"
-                                width={100}
+                                width={110}
+                                height={160}
                                 alt=""
-                                src={`https://image.tmdb.org/t/p/original${option.poster_path}`}
+                                src={`https://image.tmdb.org/t/p/w185${option.poster_path}`}
                             />
                             <CardContent>
                                 <Typography variant="subtitle2" align="right">
-                                    {option.label}
+                                    {option.name ?? option.original_title} 
                                 </Typography>
                                 <Box
                                     sx={{
@@ -116,10 +91,8 @@ export function SearchBar() {
                         </Box>
                     );
                 }}
-                renderInput={(params: any) => (
+                renderInput={(params) => (
                     <TextField
-                        size="large"
-                        placeholder="Searching..."
                         sx={{
                             width: '16vw',
                             height:'2em',
@@ -134,25 +107,25 @@ export function SearchBar() {
                                 color: theme.palette.primary.main
                             }
                         }}
-                        onChange={(event: any) => {
-                            handleOptions(event);
-                            handleChange(event.target.textContent);
-                        }}
                         {...params}
+                        placeholder="Searching..."
+                        variant="outlined"
+                        onChange={handleInputChange}
+                        value={searchValue}
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                                <>
+                                    {params.InputProps.endAdornment}
+                                    <IconButton>
+                                        <SearchIcon />
+                                    </IconButton>
+                                </>
+                            ),
+                        }}
                     />
                 )}
             />
-            <IconButton
-                size="small"
-                sx={{
-                    height: 'min-content',
-                    alignSelf: 'center',
-                    ml:1
-                }}
-                onClick={() => goToMoviePage(option)}
-            >
-                <SearchIcon />
-            </IconButton>
-        </form>
+        </Box>
     );
 }

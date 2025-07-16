@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Movie } from '../types/movie';
 import { Box, Typography } from '@mui/material';
-import { TrendingService } from '../service/trending.service';
 import { TrendingScrollBar } from './trendingScrollableBar';
+import { useMovieList } from '../hooks/useMovieList';
 
 interface Props {
     readonly media_type: 'movie' | 'tv';
@@ -16,23 +15,9 @@ const titleDictionary = {
 };
 
 export function MovieTvList(props: Props) {
-    const [movieTvData, setMovieTvData] = useState<Movie[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const { data: movieTvData = [], isLoading } = useMovieList(props.media_type, props.listType);
 
-    useEffect(() => {
-        const getData = async () => {
-            const data = await TrendingService.getLists(
-                props.media_type,
-                props.listType
-            );
-
-            setMovieTvData(data);
-            setLoading(false);
-        };
-        getData();
-    }, []);
-
-    if (loading) {
+    if (isLoading) {
         return <h1>Loading...</h1>;
     }
     

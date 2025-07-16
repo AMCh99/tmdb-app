@@ -1,25 +1,11 @@
-import { useEffect, useState } from 'react';
-import { TrendingService } from '../../service/trending.service';
-import { Movie } from '../../types/movie';
 import { Box, Typography } from '@mui/material';
 import { TrendingScrollBar } from '../trendingScrollableBar';
+import { useTrendingTvShows } from '../../hooks/useTrendingTvShows';
 
 export default function TrendingTvSeries() {
-    const [trendingTvSeriesData, setTrendingTvSeriesData] = useState<Movie[]>(
-        []
-    );
-    const [loading, setLoading] = useState<boolean>(true);
+    const { data: trendingTvSeriesData = [], isLoading } = useTrendingTvShows();
 
-    useEffect(() => {
-        const getData = async () => {
-            const data = await TrendingService.getTrendingTvShows();
-            setTrendingTvSeriesData(data);
-            setLoading(false);
-        };
-        getData();
-    }, []);
-
-    if (loading) {
+    if (isLoading) {
         return <h1>Loading...</h1>;
     }
 

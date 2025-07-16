@@ -1,30 +1,20 @@
 import { Container, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { TrendingService } from '../../service/trending.service';
 import { Review } from '../../types/review';
 import ReviewElement from './review';
+import { useMovieReviews } from '../../hooks/useMovieReviews';
 
 interface Props {
     readonly movie_id: number;
-    readonly type: string;
+    readonly media_type: string;
 }
 
 export function ReviewsSection(props: Props) {
-    const { movie_id, type } = props;
+    const { movie_id, media_type } = props;
 
-    const [reviews, setReviews] = useState<Review[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const getReviews = async () => {
-            const data = await TrendingService.getReviews(movie_id, type);
-            setReviews(data);
-            setLoading(false);
-        };
-        getReviews();
-    }, [movie_id]);
+    const {data:reviews, isLoading } = useMovieReviews(movie_id as unknown as number, media_type)
 
-    if (loading) {
+    if (isLoading) {
         return <h1>Loading...</h1>;
     }
 
