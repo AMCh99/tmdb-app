@@ -4,7 +4,7 @@ A front-end application built using TypeScript, Next.js, React.js, and Material 
 
 ## Demo
 
-Available here: [TMDb App Demo](https://amch99.github.io/tmdb-app/)
+Available here: [TMDb App Demo](https://tmdb-app-tau.vercel.app/)
 
 ## Tech Stack
 
